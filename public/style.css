@@ -105,7 +105,6 @@ a.btn-primary:hover {
 
 /* login styling*/
 
-/* Login Container */
 .login-container {
     max-width: 1000px;
     width: 100%;
@@ -124,6 +123,7 @@ a.btn-primary:hover {
     border-radius: 20%;
     margin-bottom: 20px;
     border: 2px solid blueviolet;
+    padding-top: 20px;
 }
 
 .login-container img {
@@ -150,7 +150,6 @@ a.btn-primary:hover {
     font-size: 1em;
     background: rgb(240, 239, 235);
 }
-
 .icon {
     position: absolute;
     left: 10px;
@@ -166,15 +165,15 @@ a.btn-primary:hover {
 }
 
 .forgot-password a {
-    color: #030303;
+    color: #333;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .forgot-password a:hover {
     text-decoration: none;
     color: blue;
 }
-
 .sign-up-text {
     margin-top: 15px;
     color: #333;
@@ -188,4 +187,21 @@ a.btn-primary:hover {
 .sign-up-text a:hover {
     text-decoration: none;
     color: blue;
+}
+.btn {
+    width: 200px; /* Adjust the width as needed */
+    padding: 10px;
+    background-color: darkmagenta;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 auto; 
+}
+
+.btn:hover {
+    background-color: #ebc395; /* Darker shade for hover */
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(134, 245, 60, 0.8);
 }
