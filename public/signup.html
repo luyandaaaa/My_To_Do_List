@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Donezo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fruktur:ital@0;1&family=Courgette&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
+            animation: changeBackground 15s infinite;
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
+            }
+            50% {
+                background: linear-gradient(135deg, #6a11cb, #2575fc, #48b1bf);
+            }
+            100% {
+                background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
+            }
+        }
+
+        .signup-container {
+            max-width: 1000px;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            background: transparent;
+            padding: 20px;
+            border-radius: 50px;
+            border: 2px solid darkmagenta;
+            box-shadow: none;
+        }
+
+        h1.fruktur-regular-italic {
+            font-family: "Fruktur", system-ui;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #0a0a0a;
+        }
+
+        .signup-container p {
+            font-family: "Courgette", cursive;
+            font-size: 1.2em;
+            color: #0f0f0f;
+            margin-bottom: 20px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto 20px;
+        }
+
+        .login-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        .image-wrapper::before,
+        .image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            animation: circulate 3s linear infinite;
+        }
+
+        .image-wrapper::before {
+            border-top-color: #ff00ff;
+            animation-delay: 0s;
+        }
+
+        .image-wrapper::after {
+            border-top-color: #00ffff;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes circulate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            position: relative;
+            text-align: left;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            border: 2px solid #d88bf0;
+            border-radius: 5px;
+            font-size: 1em;
+            background: rgb(233, 232, 227);
+        }
+
+        .icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #301924;
+            font-size: 1.2em;
+        }
+
+        .btn {
+            width: 200px;
+            padding: 10px;
+            background-color: darkmagenta;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ebc395;
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(134, 245, 60, 0.8);
+        }
+
+        .sign-up-text {
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .sign-up-text a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .sign-up-text a:hover {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1 class="fruktur-regular-italic">Welcome onBoard!</h1>
+        <p>Let's meet up your task</p>
+        <div class="image-wrapper">
+            <img src="of-to.jpg" alt="Sign Up Image" class="login-image">
+        </div>
+        <form class="login-form">
+            <div class="form-group">
+                <i class="fas fa-user icon"></i>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-envelope icon"></i>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock icon"></i>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock icon"></i>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <p class="sign-up-text">Already have an account? <a href="login.html">Sign in</a></p>
+    </div>
+</body>
+</html>
