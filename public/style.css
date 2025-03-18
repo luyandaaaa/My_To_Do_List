@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh; /* Ensure the body takes the full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
+    animation: changeBackground 15s infinite; /* 15s = 3 gradients * 5s each */
+}
+
+@keyframes changeBackground {
+    0% {
+        background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
+    }
+    50% {
+        background: linear-gradient(135deg, #6a11cb, #2575fc, #48b1bf);
+    }
+    100% {
+        background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
+    }
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container img {
+    width: 550px;
+    height: 550px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #744188, #e96be9, #6e4a77);
+    padding: 10px;
+    position: relative;
+    animation: moveBorder 3s infinite linear;
+}
+
+@keyframes moveBorder {
+    0% {
+        box-shadow: 0 0 30px 20px rgba(196, 243, 65, 0.7); /* Complementary purple */
+    }
+    50% {
+        box-shadow: 0 0 30px 20px rgba(233, 107, 233, 0.7); /* Complementary pink */
+    }
+    100% {
+        box-shadow: 0 0 30px 20px rgba(241, 162, 15, 0.7); /* Complementary muted purple */
+    }
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #0a0a0a;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #0f0f0f;
+    max-width: 500px; /* Limit paragraph width for better readability */
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #9224ec; /* Complementary muted pink */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px; /* Add space above the button */
+}
+
+.btn-primary:hover {
+    background-color: #8c3d66; /* Darker shade for hover */
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(116, 243, 78, 0.8); /* Glow effect matching button color */
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    border-radius: 50%;
+}
+
+.btn-primary:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
