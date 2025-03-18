@@ -58,40 +58,36 @@ body {
         box-shadow: 0 0 30px 20px rgba(241, 162, 15, 0.7); /* Complementary muted purple */
     }
 }
-
 h1 {
     font-size: 2em;
     margin-bottom: 20px;
     color: #0a0a0a;
 }
-
 p {
-    font-size: 1.2em;
+    font-size: 1.3em;
     margin-bottom: 20px;
     color: #0f0f0f;
     max-width: 500px; /* Limit paragraph width for better readability */
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
 .btn-primary {
     padding: 10px 20px;
     font-size: 1em;
     background-color: #9224ec; /* Complementary muted pink */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     margin-top: 20px; /* Add space above the button */
 }
-
 .btn-primary:hover {
     background-color: #8c3d66; /* Darker shade for hover */
     transform: scale(1.1);
     box-shadow: 0 0 15px rgba(116, 243, 78, 0.8); /* Glow effect matching button color */
 }
-
 .btn-primary::after {
     content: '';
     position: absolute;
@@ -104,7 +100,19 @@ p {
     transition: transform 0.5s ease;
     border-radius: 50%;
 }
-
 .btn-primary:hover::after {
     transform: translate(-50%, -50%) scale(1);
 }
+
+.fruktur-regular-italic {
+    font-family: "Fruktur", system-ui;
+    font-weight: 400;
+    font-style: italic;
+  }
+.courgette-regular {
+    font-family: "Courgette", cursive;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  
