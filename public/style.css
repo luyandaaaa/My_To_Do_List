@@ -5,13 +5,13 @@
 }
 
 body {
-    height: 100vh; /* Ensure the body takes the full viewport height */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
-    animation: changeBackground 15s infinite; /* 15s = 3 gradients * 5s each */
+    animation: changeBackground 15s infinite;
 }
 
 @keyframes changeBackground {
@@ -49,70 +49,159 @@ body {
 
 @keyframes moveBorder {
     0% {
-        box-shadow: 0 0 30px 20px rgba(196, 243, 65, 0.7); /* Complementary purple */
+        box-shadow: 0 0 20px 10px rgba(245, 187, 27, 0.7);
     }
     50% {
-        box-shadow: 0 0 30px 20px rgba(233, 107, 233, 0.7); /* Complementary pink */
+        box-shadow: 0 0 20px 10px rgba(65, 247, 95, 0.7);
     }
     100% {
-        box-shadow: 0 0 30px 20px rgba(241, 162, 15, 0.7); /* Complementary muted purple */
+        box-shadow: 0 0 20px 10px rgba(240, 92, 208, 0.7);
     }
 }
-h1 {
-    font-size: 2em;
+
+h1.fruktur-regular-italic {
+    font-family: "Fruktur", system-ui;
+    font-weight: 400;
+    font-style: italic;
     margin-bottom: 20px;
     color: #0a0a0a;
 }
-p {
-    font-size: 1.3em;
+
+p.courgette-regular {
+    font-family: "Courgette", cursive;
+    font-weight: 900;
+    font-style: normal;
     margin-bottom: 20px;
     color: #0f0f0f;
-    max-width: 500px; /* Limit paragraph width for better readability */
-    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.btn-primary {
+
+p.trade-winds-regular {
+    font-family: "Trade Winds", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 20px;
+    color: #0f0f0f;
+}
+
+a.btn-primary {
     padding: 10px 20px;
     font-size: 1em;
     background-color: #9224ec; /* Complementary muted pink */
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    margin-top: 20px; /* Add space above the button */
-}
-.btn-primary:hover {
-    background-color: #8c3d66; /* Darker shade for hover */
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(116, 243, 78, 0.8); /* Glow effect matching button color */
-}
-.btn-primary::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.5s ease;
-    border-radius: 50%;
-}
-.btn-primary:hover::after {
-    transform: translate(-50%, -50%) scale(1);
+    text-decoration: none; /* Remove underline from link */
+    display: inline-block; /* Make the link behave like a button */
+    margin-top: 20px;
 }
 
-.fruktur-regular-italic {
-    font-family: "Fruktur", system-ui;
-    font-weight: 400;
-    font-style: italic;
-  }
-.courgette-regular {
-    font-family: "Courgette", cursive;
-    font-weight: 800;
-    font-style: normal;
-  }
-  
-  
+a.btn-primary:hover {
+    background-color: #8c3d66; /* Darker shade for hover */
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(134, 245, 60, 0.8);
+}
+
+/* login styling*/
+
+.login-container {
+    max-width: 1000px;
+    width: 100%;
+    height: 800px;
+    text-align: center;
+    background: rgb(249, 249, 252); /* Make the background transparent */
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: none; /* Remove the shadow */
+    border:2px solid darkmagenta;
+}
+
+.login-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 20%;
+    margin-bottom: 20px;
+    border: 2px solid blueviolet;
+    padding-top: 20px;
+}
+
+.login-container img {
+    animation: moveBorder 3s infinite linear;
+}
+
+/* Form Styles */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    position: relative;
+    text-align: left;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 10px 10px 40px; /* Add padding for the icon */
+    border: 2px solid #d88bf0;
+    border-radius: 5px;
+    font-size: 1em;
+    background: rgb(240, 239, 235);
+}
+.icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a64d79; /* Icon color */
+    font-size: 1.2em;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.forgot-password a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.forgot-password a:hover {
+    text-decoration: none;
+    color: blue;
+}
+.sign-up-text {
+    margin-top: 15px;
+    color: #333;
+}
+
+.sign-up-text a {
+    color: #0a0a0a;
+    text-decoration: none;
+}
+
+.sign-up-text a:hover {
+    text-decoration: none;
+    color: blue;
+}
+.btn {
+    width: 200px; /* Adjust the width as needed */
+    padding: 10px;
+    background-color: darkmagenta;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 auto; 
+}
+
+.btn:hover {
+    background-color: #ebc395; /* Darker shade for hover */
+    transform: scale(1.1);
+    box-shadow: 0 0 50px rgba(134, 245, 60, 0.8);
+}
