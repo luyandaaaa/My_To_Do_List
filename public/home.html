@@ -7,64 +7,66 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="sidebar">
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Tasks</a></li>
-                <li><a href="#">Calendar</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <div class="main-content">
-        <div class="top-bar">
-            <div class="user-info">
-                <span class="whats-up">What's up, Harsh!</span>
-                <span class="user-icon">👤</span>
-            </div>
-            <div class="search-new-task">
-                <input type="text" placeholder="Search..." class="search-field">
-                <button class="new-task-btn">+ New Task</button>
-            </div>
+    <!-- New div wrapping all content -->
+    <div class="home-container">
+        <div class="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Tasks</a></li>
+                    <li><a href="#">Calendar</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
         </div>
 
-        <div class="categories">
-            <div class="category work">
-                <span class="category-name">Work</span>
-                <span class="task-count">4 tasks</span>
-                <span class="plus-icon">+</span>
-            </div>
-            <div class="category personal">
-                <span class="category-name">Personal</span>
-                <span class="task-count">3 tasks</span>
-                <span class="plus-icon">+</span>
-            </div>
-            <div class="category shopping">
-                <span class="category-name">Shopping</span>
-                <span class="task-count">2 tasks</span>
-                <span class="plus-icon">+</span>
-            </div>
-            <div class="category health">
-                <span class="category-name">Health</span>
-                <span class="task-count">1 task</span>
-                <span class="plus-icon">+</span>
-            </div>
-        </div>
-
-        <div class="task-grid">
-            <h2>Tasks for Today</h2>
-            <div class="tasks-container">
-                <div class="task-column">
-                    <div class="task">Dashboard design</div>
-                    <div class="task">Write monthly goals</div>
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="user-info">
+                    <span class="whats-up">What's up, Harsh!</span>
+                    <span class="user-icon">👤</span>
                 </div>
-                <div class="task-column">
-                    <div class="task">Make dinner</div>
-                    <div class="task">Grocery shopping</div>
+                <div class="search-new-task">
+                    <input type="text" placeholder="Search..." class="search-field">
+                    <button class="new-task-btn">+ New Task</button>
+                </div>
+            </div>
+
+            <div class="categories">
+                <div class="category work">
+                    <span class="category-name">Work</span>
+                    <span class="task-count">4 tasks</span>
+                    <span class="plus-icon">+</span>
+                </div>
+                <div class="category personal">
+                    <span class="category-name">Personal</span>
+                    <span class="task-count">3 tasks</span>
+                    <span class="plus-icon">+</span>
+                </div>
+                <div class="category shopping">
+                    <span class="category-name">Shopping</span>
+                    <span class="task-count">2 tasks</span>
+                    <span class="plus-icon">+</span>
+                </div>
+                <div class="category health">
+                    <span class="category-name">Health</span>
+                    <span class="task-count">1 task</span>
+                    <span class="plus-icon">+</span>
+                </div>
+            </div>
+
+            <div class="task-grid">
+                <h2>Tasks for Today</h2>
+                <div class="tasks-container">
+                    <div class="task-column">
+                        <div class="task">Dashboard design</div>
+                        <div class="task">Write monthly goals</div>
+                    </div>
+                    <div class="task-column">
+                        <div class="task">Make dinner</div>
+                        <div class="task">Grocery shopping</div>
+                    </div>
                 </div>
             </div>
         </div>
