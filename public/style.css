@@ -110,7 +110,7 @@ a.btn-primary:hover {
     width: 100%;
     height: 800px;
     text-align: center;
-    background: rgb(249, 249, 252); /* Make the background transparent */
+    background: rgb(249, 249, 252);
     padding: 20px;
     border-radius: 50px;
     box-shadow: none; /* Remove the shadow */
@@ -204,4 +204,15 @@ a.btn-primary:hover {
     background-color: #ebc395; /* Darker shade for hover */
     transform: scale(1.1);
     box-shadow: 0 0 50px rgba(134, 245, 60, 0.8);
+}
+
+/* Sign up page styling:*/
+.signup-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
 }
