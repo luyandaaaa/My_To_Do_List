@@ -216,3 +216,153 @@ a.btn-primary:hover {
     max-width: 400px;
     text-align: center;
 }
+
+/*home page styling*/
+.sidebar {
+    width: 200px;
+    background-color: #2c3e50;
+    color: white;
+    height: 80vh;
+    padding: 20px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    height: 80vh;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.whats-up {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.user-icon {
+    font-size: 24px;
+}
+
+.search-new-task {
+    display: flex;
+    align-items: center;
+}
+
+.search-field {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.new-task-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.categories {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.category {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    position: relative;
+    height: 150px;
+}
+
+.category .category-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.category .task-count {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.category .plus-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.work {
+    background-color: #3498db;
+    
+}
+
+.personal {
+    background-color: #e67e22;
+}
+
+.shopping {
+    background-color: #9b59b6;
+}
+
+.health {
+    background-color: #2ecc71;
+}
+
+.task-grid {
+    margin-bottom: 30px;
+}
+
+.task-grid h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.tasks-container {
+    display: flex;
+    gap: 20px;
+}
+
+.task-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+}
