@@ -221,7 +221,7 @@ a.btn-primary:hover {
 /* New styles for the home-container */
 .home-container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     background: linear-gradient(135deg, #f8f5f2, #d6d2fa); /* Custom background for the container */
     overflow: hidden; /* Prevent scrolling */
@@ -239,8 +239,6 @@ a.btn-primary:hover {
 .main-content {
     flex-grow: 1;
     padding: 20px;
-    height: 100vh; /* Full height */
-    overflow-y: auto; /* Allow scrolling within main content */
 }
 
 
@@ -309,7 +307,6 @@ a.btn-primary:hover {
 }
 
 .categories {
-    margin-bottom: 20px;
     margin-top: 60px;
 }
 
@@ -330,7 +327,7 @@ a.btn-primary:hover {
     border-radius: 8px;
     color: white;
     position: relative;
-    height: 200px;
+    height: 150px;
 }
 
 .category .category-name {
@@ -377,18 +374,13 @@ a.btn-primary:hover {
 }
 
 .tasks-container {
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px; /* Space between columns */
 }
-
 .task-column {
-    padding-top: 10px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 20px; /* Add padding to the task column */
-    border-radius: 8px; /* Optional: Add rounded corners */
+    padding: 20px;
+    border-radius: 8px;
     background-color: lightcyan;
 }
 
@@ -408,4 +400,12 @@ a.btn-primary:hover {
     left: 10px; /* Position the bullet */
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Center vertically */
+}
+#calendar {
+    width: 100%; /* Full width of the column */
+    max-width: 700px; /* Limit the maximum width */
+    height: 450px; /* Adjust the height as needed */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
 }
