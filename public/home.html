@@ -15,7 +15,7 @@
         <div class="sidebar">
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a class="active" href="#">Home</a></li>
                     <li><a href="#">Projects</a></li>
                     <li><a href="#">Tasks</a></li>
                     <li><a href="#">Calendar</a></li>
@@ -32,29 +32,29 @@
                 </div>
                 <div class="search-new-task">
                     <input type="text" placeholder="Search..." class="search-field">
-                    <button class="new-task-btn">+ New Task</button>
+                    <button class="new-task-btn" id="new-task-btn">+ New Task</button>
                 </div>
             </div>
 
             <div class="categories">
-                <p>Categories</p> <!-- Moved outside the flex container -->
+                <p>Categories</p> 
                 <div class="category-container"> <!-- New container for category boxes -->
-                    <div class="category work">
+                    <div class="category work" data-category="work">
                         <span class="category-name">Work</span>
                         <span class="task-count">4 tasks</span>
                         <span class="plus-icon">+</span>
                     </div>
-                    <div class="category personal">
+                    <div class="category personal" data-category="personal">
                         <span class="category-name">Personal</span>
                         <span class="task-count">3 tasks</span>
                         <span class="plus-icon">+</span>
                     </div>
-                    <div class="category shopping">
+                    <div class="category shopping" data-category="shopping">
                         <span class="category-name">Shopping</span>
                         <span class="task-count">2 tasks</span>
                         <span class="plus-icon">+</span>
                     </div>
-                    <div class="category health">
+                    <div class="category health" data-category="health">
                         <span class="category-name">Health</span>
                         <span class="task-count">1 task</span>
                         <span class="plus-icon">+</span>
@@ -67,7 +67,7 @@
                 <div class="tasks-container">
                     <div class="task-column">
                         <p>no of tasks</p>
-                        <ul>
+                        <ul id="task-list">
                             <li class="task">Dashboard design</li>
                             <li class="task">Write monthly goals</li>
                             <li class="task">Make dinner</li>
@@ -81,29 +81,27 @@
             </div>
         </div>
     </div>
-        <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const calendarEl = document.getElementById('calendar');
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth', // Show the current month
-            initialDate: new Date(), // Set the initial date to today
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            events: [
-                {
-                    title: 'Today', // Highlight today
-                    start: new Date(), // Current date
-                    allDay: true,
-                    backgroundColor: '#ff9f89', // Custom color
-                    textColor: '#000'
-                }
-            ]
-        });
-        calendar.render();
-    });
-</script>
+
+    <!-- Popup Modal for Creating/Editing Tasks -->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="task-modal">
+        <h2 id="modal-title">Create New Task</h2>
+        <form id="task-form">
+            <label for="task-name">Task Name:</label>
+            <input type="text" id="task-name" name="task-name" required>
+            <label for="task-category">Category:</label>
+            <select id="task-category" name="task-category">
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
+                <option value="shopping">Shopping</option>
+                <option value="health">Health</option>
+            </select>
+            <button type="submit">Save</button>
+            <button type="button" id="cancel-btn">Cancel</button>
+        </form>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
 </body>
 </html>

@@ -71,3 +71,110 @@ app.post("/signup", async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+async function fetchTasks(category) {
+    const response = await fetch(`/tasks/${userId}/${category}`);
+    const tasks = await response.json();
+    renderTasks(tasks);
+}
+
+fetchTasks(); // Fetch tasks for the "Work" category
+
+async function createTask(category, taskData) {
+    const response = await fetch(`/tasks/${category}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(taskData),
+    });
+    const result = await response.json();
+    if (response.ok) {
+        fetchTasks(category); // Refresh the task list
+    } else {
+        console.error(result.error);
+    }
+}
+
+app.get("/tasks/:userId/:category", async (req, res) => {
+    const { userId, category } = req.params;
+    const validCategories = ["work", "personal", "shopping", "health"];
+    
+    if (!validCategories.includes(category)) {
+        return res.status(400).json({ error: "Invalid category" });
+    }
+
+    try {
+        const tableName = `${category}_tasks`;
+        const result = await db.query(`SELECT * FROM ${tableName} WHERE user_id = $1`, [userId]);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.post("/tasks/:category", async (req, res) => {
+    const { category } = req.params;
+    const { userId, name } = req.body;
+    const validCategories = ["work", "personal", "shopping", "health"];
+
+    if (!validCategories.includes(category)) {
+        return res.status(400).json({ error: "Invalid category" });
+    }
+
+    if (!userId || !name) {
+        return res.status(400).json({ error: "User ID and task name are required" });
+    }
+
+    try {
+        const tableName = `${category}_tasks`;
+        const result = await db.query(
+            `INSERT INTO ${tableName} (user_id, name) VALUES ($1, $2) RETURNING *`,
+            [userId, name]
+        );
+        res.status(201).json({ message: "Task created successfully", task: result.rows[0] });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+
+app.delete("/tasks/:category/:taskId", async (req, res) => {
+    const { category, taskId } = req.params;
+    const validCategories = ["work", "personal", "shopping", "health"];
+
+    if (!validCategories.includes(category)) {
+        return res.status(400).json({ error: "Invalid category" });
+    }
+
+    try {
+        const tableName = `${category}_tasks`;
+        await db.query(`DELETE FROM ${tableName} WHERE id = $1`, [taskId]);
+        res.status(200).json({ message: "Task deleted successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.put("/tasks/:category/:taskId", async (req, res) => {
+    const { category, taskId } = req.params;
+    const { name, completed } = req.body;
+    const validCategories = ["work", "personal", "shopping", "health"];
+
+    if (!validCategories.includes(category)) {
+        return res.status(400).json({ error: "Invalid category" });
+    }
+
+    try {
+        const tableName = `${category}_tasks`;
+        const result = await db.query(
+            `UPDATE ${tableName} SET name = $1, completed = $2 WHERE id = $3 RETURNING *`,
+            [name, completed, taskId]
+        );
+        res.status(200).json({ message: "Task updated successfully", task: result.rows[0] });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
