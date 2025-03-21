@@ -185,7 +185,7 @@
         <div class="image-wrapper">
             <img src="of-to.jpg" alt="Sign Up Image" class="login-image">
         </div>
-        <form class="login-form" id="signup-form">
+        <form class="login-form" id="signup-form" action="/register" method="POST">
             <div class="form-group">
                 <i class="fas fa-user icon"></i>
                 <input type="text" id="name" name="name" placeholder="Enter your full name" required>
@@ -206,44 +206,6 @@
         </form>
         <p class="sign-up-text">Already have an account? <a href="home.html">Sign in</a></p>
     </div>
-
-    <script>
-        document.getElementById("signup-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
-
-            // Validate password match
-            if (password !== confirmPassword) {
-                alert("Passwords do not match");
-                return;
-            }
-
-            // Send data to the backend
-            try {
-                const response = await fetch("http://localhost:3000/signup", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ name, email, password, confirmPassword }),
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    alert("Signup successful!");
-                    window.location.href = "home.html"; // Redirect to login page
-                } else {
-                    alert(data.error || "Signup failed");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("An error occurred. Please try again.");
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

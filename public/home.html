@@ -36,25 +36,26 @@
 
             <div class="categories">
                 <p>Categories</p> 
-                <div class="category-container"> <div class="category work" data-category="work">
+                <div class="category-container"> 
+                    <div class="category work" data-category="work">
                         <span class="category-name">Work</span>
                         <span class="task-count">4 tasks</span>
-                        <span class="plus-icon">+</span>
+                        <span class="plus-icon" data-category="work">+</span> <!-- Added data-category -->
                     </div>
                     <div class="category personal" data-category="personal">
                         <span class="category-name">Personal</span>
                         <span class="task-count">3 tasks</span>
-                        <span class="plus-icon">+</span>
+                        <span class="plus-icon" data-category="personal">+</span> <!-- Added data-category -->
                     </div>
                     <div class="category shopping" data-category="shopping">
                         <span class="category-name">Shopping</span>
                         <span class="task-count">2 tasks</span>
-                        <span class="plus-icon">+</span>
+                        <span class="plus-icon" data-category="shopping">+</span> <!-- Added data-category -->
                     </div>
                     <div class="category health" data-category="health">
                         <span class="category-name">Health</span>
                         <span class="task-count">1 task</span>
-                        <span class="plus-icon">+</span>
+                        <span class="plus-icon" data-category="health">+</span> <!-- Added data-category -->
                     </div>
                 </div>
             </div>
@@ -77,19 +78,56 @@
 
     <div class="overlay" id="overlay"></div>
     <div class="modal" id="task-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
         <h2 id="modal-title">Create New Task</h2>
         <form id="task-form">
-            <label for="task-name">Task Name:</label>
-            <input type="text" id="task-name" name="task-name" required>
-            <label for="task-category">Category:</label>
-            <select id="task-category" name="task-category">
-                <option value="work">Work</option>
-                <option value="personal">Personal</option>
-                <option value="shopping">Shopping</option>
-                <option value="health">Health</option>
-            </select>
-            <button type="submit">Save</button>
-            <button type="button" id="cancel-btn">Cancel</button>
+            <!-- Task Name -->
+            <div class="form-group">
+                <label for="task-name">Task Name</label>
+                <input type="text" id="task-name" name="task-name" required placeholder="Enter task name">
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label for="task-category">Category</label>
+                <div class="category-options">
+                    <label><input type="radio" name="task-category" value="work" required> Work</label>
+                    <label><input type="radio" name="task-category" value="personal"> Personal</label>
+                    <label><input type="radio" name="task-category" value="shopping"> Shopping</label>
+                    <label><input type="radio" name="task-category" value="health"> Health</label>
+                </div>
+            </div>
+
+            <!-- Date -->
+            <div class="form-group">
+                <label for="task-date">Date</label>
+                <input type="date" id="task-date" name="task-date" required min="<?php echo date('Y-m-d'); ?>">
+            </div>
+
+            <!-- Time -->
+            <div class="form-group">
+                <label>Time</label>
+                <div class="time-container">
+                    <div>
+                        <input type="time" id="start-time" name="start-time" required>
+                    </div>
+                    <div>
+                        <input type="time" id="end-time" name="end-time" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="task-description">Description</label>
+                <textarea id="task-description" name="task-description" placeholder="Enter task description"></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-buttons">
+                <button type="submit">Create Task</button>
+                <button type="button" id="cancel-btn">Cancel</button>
+            </div>
         </form>
     </div>
 

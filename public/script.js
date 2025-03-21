@@ -1,3 +1,51 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('signup-form');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        // Client-side validation
+        if (!name || !email || !password || !confirmPassword) {
+            alert('All fields are required');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        // Prepare data to send to the server
+        const data = { name, email, password, confirmPassword };
+
+        try {
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                window.location.href = '/home.html'; // Redirect to home page
+            } else {
+                const result = await response.json();
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+});
+
+/* scriptfor home page*/
 document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -19,134 +67,90 @@ document.addEventListener('DOMContentLoaded', function () {
         ]
     });
     calendar.render();
+});
 
-    // Task Management Logic
-    const taskModal = document.getElementById('task-modal');
-    const overlay = document.getElementById('overlay');
+document.addEventListener('DOMContentLoaded', function () {
     const newTaskBtn = document.getElementById('new-task-btn');
+    const overlay = document.getElementById('overlay');
+    const taskModal = document.getElementById('task-modal');
+    const closeModal = document.getElementById('close-modal');
     const cancelBtn = document.getElementById('cancel-btn');
-    const taskForm = document.getElementById('task-form');
-    const taskList = document.getElementById('task-list');
-    const plusIcons = document.querySelectorAll('.plus-icon');
+    const plusIcons = document.querySelectorAll('.plus-icon'); // Select all plus icons
 
-    let editingTaskId = null;
+    // Function to open the modal
+    function openModal() {
+        overlay.style.display = 'block';
+        taskModal.style.display = 'block';
+    }
 
-    newTaskBtn.addEventListener('click', () => {
-        taskModal.classList.add('active');
-        overlay.classList.add('active');
+    // Open modal for "New Task" button
+    newTaskBtn.addEventListener('click', openModal);
+
+    // Open modal for plus icons
+    plusIcons.forEach(icon => {
+        icon.addEventListener('click', function () {
+            const category = this.getAttribute('data-category'); // Get the category from the plus icon
+            const categoryRadio = document.querySelector(`input[name="task-category"][value="${category}"]`);
+            if (categoryRadio) {
+                categoryRadio.checked = true; // Pre-select the category in the modal
+            }
+            openModal(); // Open the modal
+        });
     });
 
-    plusIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-            const category = icon.closest('.category').dataset.category;
-            document.getElementById('task-category').value = category;
-            taskModal.classList.add('active');
-            overlay.classList.add('active');
-        });
+    // Close modal
+    closeModal.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        taskModal.style.display = 'none';
     });
 
     cancelBtn.addEventListener('click', () => {
-        taskModal.classList.remove('active');
-        overlay.classList.remove('active');
+        overlay.style.display = 'none';
+        taskModal.style.display = 'none';
     });
 
-    taskForm.addEventListener('submit', async (e) => {
+    overlay.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        taskModal.style.display = 'none';
+    });
+
+    // Prevent past dates
+    const taskDate = document.getElementById('task-date');
+    taskDate.min = new Date().toISOString().split('T')[0];
+
+    // Handle form submission
+    const taskForm = document.getElementById('task-form');
+    taskForm.addEventListener('submit', function (e) {
         e.preventDefault();
+
         const taskName = document.getElementById('task-name').value;
-        const category = document.getElementById('task-category').value;
-        const userId = 1;
+        const taskCategory = document.querySelector('input[name="task-category"]:checked').value;
+        const taskDate = document.getElementById('task-date').value;
+        const startTime = document.getElementById('start-time').value;
+        const endTime = document.getElementById('end-time').value;
+        const taskDescription = document.getElementById('task-description').value;
 
-        if (editingTaskId) {
-            await updateTask(category, editingTaskId, taskName);
-            editingTaskId = null;
-            document.getElementById('modal-title').textContent = "Create New Task";
-        } else {
-            await createTask(category, { userId, name: taskName });
+        // Validate end time is after start time
+        if (startTime >= endTime) {
+            alert('End time must be after start time.');
+            return;
         }
 
-        taskModal.classList.remove('active');
-        overlay.classList.remove('active');
+        // Submit data to the database (you can use fetch or axios for this)
+        const taskData = {
+            name: taskName,
+            category: taskCategory,
+            date: taskDate,
+            startTime: startTime,
+            endTime: endTime,
+            description: taskDescription
+        };
+
+        console.log('Task Data:', taskData); // Replace with your database submission logic
+
+        // Clear form and close modal
         taskForm.reset();
-        fetchTasks(category);
+        overlay.style.display = 'none';
+        taskModal.style.display = 'none';
     });
-
-    async function createTask(category, taskData) {
-        const response = await fetch(`/tasks/${category}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(taskData),
-        });
-        const result = await response.json();
-        if (response.ok) {
-            fetchTasks(category);
-        } else {
-            console.error(result.error);
-        }
-    }
-
-    async function updateTask(category, taskId, taskName) {
-        const response = await fetch(`/tasks/${category}/${taskId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: taskName }),
-        });
-        if (response.ok) {
-            fetchTasks(category);
-        } else {
-            console.error('Failed to update task');
-        }
-    }
-
-    async function fetchTasks(category) {
-        const userId = 1;
-        const response = await fetch(`/tasks/${userId}/${category}`);
-        const tasks = await response.json();
-        renderTasks(tasks);
-    }
-
-    function renderTasks(tasks) {
-        taskList.innerHTML = tasks.map(task => `
-            <li class="task" data-task-id="${task.id}">
-                ${task.name} (${task.category || 'Uncategorized'})
-                <button onclick="deleteTask('${task.category}', ${task.id})">Delete</button>
-                <button onclick="startEdit('${task.category}', ${task.id}, '${task.name}')">Edit</button>
-                <input type="checkbox" onchange="toggleComplete('${task.category}', ${task.id}, this.checked)" ${task.completed ? 'checked' : ''}>
-            </li>
-        `).join('');
-    }
-
-    async function deleteTask(category, taskId) {
-        const response = await fetch(`/tasks/${category}/${taskId}`, { method: 'DELETE' });
-        if (response.ok) {
-            fetchTasks(category);
-        } else {
-            console.error('Failed to delete task');
-        }
-    }
-
-    async function startEdit(category, taskId, taskName) {
-        document.getElementById('task-name').value = taskName;
-        document.getElementById('task-category').value = category;
-        document.getElementById('modal-title').textContent = "Edit Task";
-        taskModal.classList.add('active');
-        overlay.classList.add('active');
-        editingTaskId = taskId;
-    }
-
-    async function toggleComplete(category, taskId, completed) {
-        const response = await fetch(`/tasks/${category}/${taskId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ completed: completed }),
-        });
-        if (response.ok) {
-            fetchTasks(category);
-        } else {
-            console.error('Failed to update completion status');
-        }
-    }
-
-    // Initial task fetch on page load
-    const initialCategory = "work";
-    fetchTasks(initialCategory);
 });
