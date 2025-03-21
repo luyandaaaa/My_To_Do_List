@@ -235,6 +235,12 @@ a.btn-primary:hover {
     height: 100vh; /* Full height */
     padding: 20px;
 }
+.sidebar nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure the nav takes the full height of the sidebar */
+}
 .sidebar nav ul li a.active {
     color: rgb(123, 236, 17);
   }
