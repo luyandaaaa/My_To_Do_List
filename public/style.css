@@ -242,8 +242,12 @@ a.btn-primary:hover {
     height: 100%; /* Ensure the nav takes the full height of the sidebar */
 }
 .sidebar nav ul li a.active {
-    color: rgb(123, 236, 17);
+    background-color: rgb(123, 236, 17);
+    color: white;
   }
+.sidebar nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+}
 
 .main-content {
     flex-grow: 1;
@@ -264,6 +268,7 @@ a.btn-primary:hover {
     color: white;
     text-decoration: none;
     font-size: 16px;
+    padding: 10px 90px; /* Add padding for better clickability */
 }
 
 .main-content {
