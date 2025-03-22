@@ -3,6 +3,7 @@ import path from "path";
 import pg from "pg";
 import bcrypt from "bcrypt";
 import cors from "cors";
+import session from 'express-session'
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,6 +12,12 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(process.cwd(), "public")));
+app.use(session({
+    secret: 'WsfhWxg12g',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
 
 // Serve the landing page
 app.get("/", (req, res) => {
@@ -60,7 +67,7 @@ app.post("/register", async (req, res) => {
             [name, email, hashedPassword]
         );
         console.log("User created:", result.rows[0]); // Log the created user
-
+        req.session.userEmail = email;
         // Redirect to home page
         res.redirect("/home.html");
     } catch (err) {
@@ -72,4 +79,28 @@ app.post("/register", async (req, res) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+// server.js
+
+// Add this endpoint to fetch user data
+app.get("/user", async (req, res) => {
+    // Assuming you store the user's email in a session after login
+    const userEmail = req.session.userEmail; // You need to set this during login
+
+    if (!userEmail) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+        const result = await db.query("SELECT name FROM users WHERE email = $1", [userEmail]);
+        if (result.rows.length > 0) {
+            res.json({ name: result.rows[0].name });
+        } else {
+            res.status(404).json({ error: "User not found" });
+        }
+    } catch (err) {
+        console.error("Error fetching user data:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
 });

@@ -154,3 +154,26 @@ document.addEventListener('DOMContentLoaded', function () {
         taskModal.style.display = 'none';
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Fetch the user's name from the server
+    fetch('/user')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update the greeting with the user's name
+            const greetingElement = document.getElementById('user-greeting');
+            if (greetingElement) {
+                greetingElement.textContent = `What's up, ${data.name}!`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        });
+
+    // Rest of your existing JavaScript code...
+});
