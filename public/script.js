@@ -197,3 +197,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Rest of your existing JavaScript code...
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Client-side validation
+        if (!email || !password) {
+            alert('Email and password are required');
+            return;
+        }
+
+        // Prepare data to send to the server
+        const data = { email, password };
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                window.location.href = '/home.html'; // Redirect to home page
+            } else {
+                const result = await response.json();
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+    });
+});

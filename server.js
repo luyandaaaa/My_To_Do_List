@@ -37,6 +37,41 @@ db.connect()
     .then(() => console.log("Connected to the database"))
     .catch((err) => console.error("Connection error", err.stack));
 
+// Login endpoint
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+        return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    try {
+        // Check if email exists
+        const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+        if (result.rows.length === 0) {
+            return res.status(400).json({ error: "Invalid email or password" });
+        }
+
+        const user = result.rows[0];
+
+        // Compare hashed password
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({ error: "Invalid email or password" });
+        }
+
+        // Set session
+        req.session.userEmail = user.email;
+
+        // Redirect to home page
+        res.redirect("/home.html");
+    } catch (err) {
+        console.error("Error during login:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 // Signup endpoint
 app.post("/register", async (req, res) => {
     const { name, email, password, confirmPassword } = req.body;
