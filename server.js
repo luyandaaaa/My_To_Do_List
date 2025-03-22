@@ -104,3 +104,83 @@ app.get("/user", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+app.post('/tasks', async (req, res) => {
+    const { name, category, date, startTime, endTime, description } = req.body;
+
+    // Fetch the user's ID from the session
+    const userEmail = req.session.userEmail; // Assuming you store the user's email in the session
+    if (!userEmail) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+        // Fetch the user's ID from the database
+        const userResult = await db.query("SELECT userid FROM users WHERE email = $1", [userEmail]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const userId = userResult.rows[0].userid; // Use the correct column name here
+
+        // Determine the table name based on the category
+        let tableName;
+        switch (category) {
+            case 'work':
+                tableName = 'work_tasks';
+                break;
+            case 'personal':
+                tableName = 'personal_tasks';
+                break;
+            case 'shopping':
+                tableName = 'shopping_tasks';
+                break;
+            case 'health':
+                tableName = 'health_tasks';
+                break;
+            default:
+                return res.status(400).json({ error: "Invalid category" });
+        }
+
+        // Insert the task into the appropriate table
+        const result = await db.query(
+            `INSERT INTO ${tableName} (task_name, date, start_time, end_time, description, user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            [name, date, startTime, endTime, description, userId]
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error("Error creating task:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.get('/tasks', async (req, res) => {
+    const userEmail = req.session.userEmail;
+    if (!userEmail) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+        const userResult = await db.query("SELECT userid FROM users WHERE email = $1", [userEmail]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const userId = userResult.rows[0].userid; // Use the correct column name here
+
+        // Fetch tasks from all category tables for the user
+        const workTasks = await db.query("SELECT * FROM work_tasks WHERE user_id = $1", [userId]);
+        const personalTasks = await db.query("SELECT * FROM personal_tasks WHERE user_id = $1", [userId]);
+        const shoppingTasks = await db.query("SELECT * FROM shopping_tasks WHERE user_id = $1", [userId]);
+        const healthTasks = await db.query("SELECT * FROM health_tasks WHERE user_id = $1", [userId]);
+
+        res.status(200).json({
+            workTasks: workTasks.rows,
+            personalTasks: personalTasks.rows,
+            shoppingTasks: shoppingTasks.rows,
+            healthTasks: healthTasks.rows
+        });
+    } catch (err) {
+        console.error("Error fetching tasks:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});

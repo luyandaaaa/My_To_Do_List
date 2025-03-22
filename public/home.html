@@ -83,7 +83,7 @@
     <div class="modal" id="task-modal">
         <span class="close-modal" id="close-modal">&times;</span>
         <h2 id="modal-title">Create New Task</h2>
-        <form id="task-form">
+        <form id="task-form" action="/tasks" method="POST">
             <!-- Task Name -->
             <div class="form-group">
                 <label for="task-name">Task Name</label>
@@ -128,7 +128,7 @@
 
             <!-- Buttons -->
             <div class="form-buttons">
-                <button type="submit">Create Task</button>
+                <button type="submit" class="btn">Create Task</button>
                 <button type="button" id="cancel-btn">Cancel</button>
             </div>
         </form>

@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Handle form submission
     const taskForm = document.getElementById('task-form');
-    taskForm.addEventListener('submit', function (e) {
+    taskForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         const taskName = document.getElementById('task-name').value;
@@ -130,13 +130,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const endTime = document.getElementById('end-time').value;
         const taskDescription = document.getElementById('task-description').value;
 
-        // Validate end time is after start time
         if (startTime >= endTime) {
             alert('End time must be after start time.');
             return;
         }
 
-        // Submit data to the database (you can use fetch or axios for this)
         const taskData = {
             name: taskName,
             category: taskCategory,
@@ -146,8 +144,30 @@ document.addEventListener('DOMContentLoaded', function () {
             description: taskDescription
         };
 
-        console.log('Task Data:', taskData); // Replace with your database submission logic
+        try {
+            const response = await fetch('/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(taskData)
+            });
 
+            if (response.ok) {
+                alert('Task created successfully!');
+                taskForm.reset();
+                overlay.style.display = 'none';
+                taskModal.style.display = 'none';
+                // Optionally, refresh the task list or calendar
+            } else {
+                const result = await response.json();
+                alert(result.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        }
+        
         // Clear form and close modal
         taskForm.reset();
         overlay.style.display = 'none';
