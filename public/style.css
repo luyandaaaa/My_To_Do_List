@@ -561,26 +561,88 @@ textarea {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#task-list li:hover {
-    background: #eaeaea;
+/* Task Name */
+.task-name {
+    flex: 1;
+    font-size: 16px;
 }
 
-/* Icons Styling */
-.edit-btn, .delete-btn {
+/* Task Actions (Icons) */
+.task-actions {
+    display: flex;
+    gap: 5px; /* Small space between icons */
+}
+
+.task-actions button {
     background: none;
     border: none;
     font-size: 18px;
     cursor: pointer;
-    margin-left: 10px;
     transition: transform 0.2s ease-in-out;
 }
 
-.edit-btn:hover {
-    color: #007bff;
+.task-actions .edit-btn {
+    color: #0f0f0f;
+}
+
+.task-actions .delete-btn {
+    color: #222020;
+}
+
+.task-actions .edit-btn:hover, 
+.task-actions .delete-btn:hover {
     transform: scale(1.2);
 }
 
-.delete-btn:hover {
-    color: #ff4d4d;
-    transform: scale(1.2);
+
+/* Delete Confirmation Modal */
+.delete-modal {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(243, 171, 239);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+}
+
+.delete-modal-content {
+    flex-direction: row;
+    align-items: center;
+}
+
+.delete-modal p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+#confirm-delete, #cancel-delete {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#confirm-delete {
+    background: rgb(248, 108, 15);
+    color: white;
+}
+
+#cancel-delete {
+    background: gray;
+    color: white;
+}
+
+.close-delete-modal {
+    position: absolute;
+    top: 2px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 30px;
 }
