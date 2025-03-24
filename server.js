@@ -197,7 +197,6 @@ app.post('/tasks', async (req, res) => {
             allTasks.push(...result.rows.map(task => ({
                 id: task.id,
                 name: task.name,
-                completed: task.completed,
                 category: category,
                 table: table
             })));

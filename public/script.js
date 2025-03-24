@@ -244,11 +244,10 @@ async function fetchTasks() {
         const taskList = document.getElementById('task-list');
 
         taskList.innerHTML = ''; // Clear existing tasks
-
         tasks.forEach(task => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <span class="task-name">${task.task_name} (${task.category})</span>
+                <span class="task-name">${task.task_name}</span>
                 <div class="task-actions">
                     <button class="edit-btn" data-id="${task.id}" data-table="${task.table}">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -279,36 +278,12 @@ async function deleteTask(event) {
     const id = event.target.dataset.id;
     const table = event.target.dataset.table;
 
-    // Create a confirmation modal dynamically
-    const modal = document.createElement('div');
-    modal.classList.add('delete-modal');
-    modal.innerHTML = `
-        <div class="delete-modal-content">
-            <p>Are you sure you want to delete this task?</p>
-            <button id="confirm-delete">OK</button>
-            <button id="cancel-delete">Cancel</button>
-        </div>
-    `;
-
-    document.body.appendChild(modal);
-
-
-
-    document.getElementById('cancel-delete').addEventListener('click', () => {
-        document.body.removeChild(modal);
-    });
-
-    // Handle confirm delete
-    document.getElementById('confirm-delete').addEventListener('click', async () => {
-        try {
-            await fetch(`/tasks/${table}/${id}`, { method: 'DELETE' });
-            document.body.removeChild(modal);
-            alert("Task successfully deleted!");
-            fetchTasks(); // Refresh tasks
-        } catch (error) {
-            console.error("Error deleting task:", error);
-        }
-    });
+    try {
+        await fetch(`/tasks/${table}/${id}`, { method: 'DELETE' });
+        fetchTasks(); // Refresh tasks
+    } catch (error) {
+        console.error("Error deleting task:", error);
+    }
 }
 
 async function editTask(event) {
