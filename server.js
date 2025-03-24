@@ -183,39 +183,56 @@ app.post('/tasks', async (req, res) => {
         );
 
         res.status(201).json(result.rows[0]);
+
+        const queries = [
+            { table: "work_tasks", category: "work" },
+            { table: "personal_tasks", category: "personal" },
+            { table: "shopping_tasks", category: "shopping" },
+            { table: "health_tasks", category: "health" }
+        ];
+
+        let allTasks = [];
+        for (const { table, category } of queries) {
+            const result = await db.query(`SELECT id, name, completed FROM ${table} WHERE user_id = $1`, [userId]);
+            allTasks.push(...result.rows.map(task => ({
+                id: task.id,
+                name: task.name,
+                completed: task.completed,
+                category: category,
+                table: table
+            })));
+        }
+
+        res.json(allTasks);
+
     } catch (err) {
         console.error("Error creating task:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 });
 
-app.get('/tasks', async (req, res) => {
-    const userEmail = req.session.userEmail;
-    if (!userEmail) {
-        return res.status(401).json({ error: "Unauthorized" });
-    }
+app.delete('/tasks/:table/:id', async (req, res) => {
+    const { table, id } = req.params;
 
     try {
-        const userResult = await db.query("SELECT userid FROM users WHERE email = $1", [userEmail]);
-        if (userResult.rows.length === 0) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        const userId = userResult.rows[0].userid; // Use the correct column name here
-
-        // Fetch tasks from all category tables for the user
-        const workTasks = await db.query("SELECT * FROM work_tasks WHERE user_id = $1", [userId]);
-        const personalTasks = await db.query("SELECT * FROM personal_tasks WHERE user_id = $1", [userId]);
-        const shoppingTasks = await db.query("SELECT * FROM shopping_tasks WHERE user_id = $1", [userId]);
-        const healthTasks = await db.query("SELECT * FROM health_tasks WHERE user_id = $1", [userId]);
-
-        res.status(200).json({
-            workTasks: workTasks.rows,
-            personalTasks: personalTasks.rows,
-            shoppingTasks: shoppingTasks.rows,
-            healthTasks: healthTasks.rows
-        });
+        await db.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
+        res.json({ success: true, message: "Task deleted" });
     } catch (err) {
-        console.error("Error fetching tasks:", err);
+        console.error("Error deleting task:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+app.put('/tasks/:table/:id', async (req, res) => {
+    const { table, id } = req.params;
+    const { task_name } = req.body;
+
+    try {
+        await db.query(`UPDATE ${table} SET task_name = $1 WHERE id = $2`, [task_name, id]);
+        res.json({ success: true, message: "Task updated" });
+    } catch (err) {
+        console.error("Error updating task:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+

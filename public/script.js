@@ -236,3 +236,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+async function fetchTasks() {
+    try {
+        const response = await fetch('/tasks');
+        const tasks = await response.json();
+        const taskList = document.getElementById('task-list');
+
+        taskList.innerHTML = ''; // Clear existing tasks
+
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${task.task_name} (${task.category})</span>
+                <button class="edit-btn" data-id="${task.id}" data-table="${task.table}">✏️</button>
+                <button class="delete-btn" data-id="${task.id}" data-table="${task.table}">🗑️</button>
+            `;
+            taskList.appendChild(li);
+        });
+
+        // Attach event listeners
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', deleteTask);
+        });
+
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', editTask);
+        });
+
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+    }
+}
+
+async function deleteTask(event) {
+    const id = event.target.dataset.id;
+    const table = event.target.dataset.table;
+
+    try {
+        await fetch(`/tasks/${table}/${id}`, { method: 'DELETE' });
+        fetchTasks(); // Refresh tasks
+    } catch (error) {
+        console.error("Error deleting task:", error);
+    }
+}
+
+async function editTask(event) {
+    const id = event.target.dataset.id;
+    const table = event.target.dataset.table;
+    const newName = prompt("Enter new task name:");
+
+    if (newName) {
+        try {
+            await fetch(`/tasks/${table}/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ task_name: newName})
+            });
+            fetchTasks(); // Refresh tasks
+        } catch (error) {
+            console.error("Error updating task:", error);
+        }
+    }
+}
+
+// Load tasks on page load
+document.addEventListener('DOMContentLoaded', fetchTasks);
