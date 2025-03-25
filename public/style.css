@@ -223,7 +223,7 @@ a.btn-primary:hover {
     width: 100%;
     min-height: 100vh;
     display: flex;
-    background: linear-gradient(135deg, #f8f5f2, #d6d2fa); /* Custom background for the container */
+    background: linear-gradient(135deg, #f8e3cf, #b0aae4); /* Custom background for the container */
     overflow: hidden; /* Prevent scrolling */
 }
 
@@ -281,13 +281,14 @@ a.btn-primary:hover {
 }
 
 .categories p {
-    font-size: 21px;
+    font-size: 25px;
     margin-bottom: 15px; /* Space between "Categories" and the boxes */
     font-family: "Fruktur", cursive;
     font-weight: 400;
     font-style: normal;
     color: #4f6ef8; /* Matching your sidebar color */
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
+    text-align: center;
 }
 
 .category-container {
