@@ -178,7 +178,8 @@ app.post('/tasks', async (req, res) => {
 
         // Insert the task into the appropriate table
         const result = await db.query(
-            `INSERT INTO ${tableName} (task_name, date, start_time, end_time, description, user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+            `INSERT INTO ${tableName} (task_name, date, start_time, end_time, description, user_id, completed) 
+             VALUES ($1, $2, $3, $4, $5, $6, false) RETURNING *`,
             [name, date, startTime, endTime, description, userId]
         );
 
@@ -265,6 +266,77 @@ app.get('/tasks', async (req, res) => {
         res.json(allTasks);
     } catch (err) {
         console.error("Error fetching tasks:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+// Add this endpoint to handle checkbox toggles
+app.patch('/tasks/:table/:id/toggle', async (req, res) => {
+    const { table, id } = req.params;
+    const userEmail = req.session.userEmail;
+
+    if (!userEmail) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+        // Get user ID
+        const userResult = await db.query("SELECT userid FROM users WHERE email = $1", [userEmail]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const userId = userResult.rows[0].userid;
+
+        // Check current status of the task
+        const taskResult = await db.query(`SELECT * FROM ${table} WHERE id = $1 AND user_id = $2`, [id, userId]);
+        if (taskResult.rows.length === 0) {
+            return res.status(404).json({ error: "Task not found or not owned by user" });
+        }
+
+        const task = taskResult.rows[0];
+        const isCompleted = task.completed;
+
+        if (!isCompleted) {
+            // If marking as complete, move to completed_tasks table
+            await db.query(
+                `INSERT INTO completed_tasks (user_id, task_name, description, category) 
+                 VALUES ($1, $2, $3, $4)`,
+                [userId, task.task_name, task.description, table.replace("_tasks", "")]
+            );
+
+            // Delete from the original table
+            await db.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
+
+            return res.json({ success: true, message: "Task moved to completed_tasks", task });
+        }
+
+        res.json({ success: true, message: "Task remains incomplete" });
+    } catch (err) {
+        console.error("Error toggling task:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.get('/completed-tasks', async (req, res) => {
+    const userEmail = req.session.userEmail;
+    if (!userEmail) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    try {
+        const userResult = await db.query("SELECT userid FROM users WHERE email = $1", [userEmail]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const userId = userResult.rows[0].userid;
+
+        const result = await db.query(
+            `SELECT * FROM completed_tasks WHERE user_id = $1 ORDER BY completed_at DESC`,
+            [userId]
+        );
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error("Error fetching completed tasks:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 });

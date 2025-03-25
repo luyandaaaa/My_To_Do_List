@@ -646,3 +646,60 @@ textarea {
     cursor: pointer;
     font-size: 30px;
 }
+/* Add this to your CSS */
+.task-checkbox {
+    position: relative;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.task-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #0c0c0c;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.task-checkbox:hover input ~ .checkmark {
+    border-color: #888;
+}
+
+.task-checkbox input:checked ~ .checkmark {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.task-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.task-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid rgb(8, 8, 8);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.task-name.strikethrough {
+    text-decoration: line-through;
+    color: grey;
+}

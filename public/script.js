@@ -249,8 +249,16 @@ async function fetchTasks() {
         taskList.innerHTML = '';
         tasks.forEach(task => {
             const li = document.createElement('li');
+            li.className = `task-item ${task.completed ? 'completed' : ''}`;
             li.innerHTML = `
-                <span class="task-name">${task.name}</span>
+                <div class="task-content">
+                    <label class="task-checkbox">
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                               data-id="${task.id}" data-table="${task.table}">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="task-name ${task.completed ? 'strikethrough' : ''}">${task.name}</span>
+                </div>
                 <div class="task-actions">
                     <button class="edit-btn" data-id="${task.id}" data-table="${task.table}">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -263,7 +271,12 @@ async function fetchTasks() {
             taskList.appendChild(li);
         });
 
-        // Attach event listeners to the buttons (not the icons)
+        // Attach event listeners for toggling completion
+        document.querySelectorAll('.task-checkbox input').forEach(checkbox => {
+            checkbox.addEventListener('change', toggleTaskCompletion);
+        });
+
+        // Attach event listeners for edit and delete buttons
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', deleteTask);
         });
@@ -276,6 +289,33 @@ async function fetchTasks() {
         alert('Failed to load tasks. Please try again.');
     }
 }
+
+// Function to toggle task completion
+async function toggleTaskCompletion(event) {
+    const checkbox = event.target;
+    const taskId = checkbox.getAttribute('data-id');
+    const table = checkbox.getAttribute('data-table');
+
+    try {
+        const response = await fetch(`/tasks/${table}/${taskId}/toggle`, { method: 'PATCH' });
+
+        if (!response.ok) {
+            throw new Error('Failed to toggle task');
+        }
+
+        const result = await response.json();
+        
+        if (result.success) {
+            fetchTasks(); // Refresh the task list after completion
+        }
+    } catch (error) {
+        console.error("Error toggling task:", error);
+        alert('Failed to update task. Please try again.');
+    }
+}
+
+
+
 async function deleteTask(event) {
     // Get the button element (might be the icon or the button itself)
     const button = event.target.closest('.delete-btn');
@@ -364,5 +404,38 @@ async function editTask(event) {
         }
     }
 }
+
+async function fetchCompletedTasks() {
+    try {
+        const response = await fetch('/completed-tasks');
+        if (!response.ok) {
+            throw new Error('Failed to fetch completed tasks');
+        }
+
+        const tasks = await response.json();
+        const completedTaskList = document.getElementById('completed-task-list');
+        
+        completedTaskList.innerHTML = '';
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.className = 'task-item completed';
+            li.innerHTML = `
+                <div class="task-content">
+                    <span class="task-name strikethrough">${task.task_name}</span>
+                </div>
+                <div class="task-actions">
+                    <small>Completed on: ${new Date(task.completed_at).toLocaleString()}</small>
+                </div>
+            `;
+            completedTaskList.appendChild(li);
+        });
+    } catch (error) {
+        console.error("Error fetching completed tasks:", error);
+    }
+}
+
+// Load completed tasks on page load
+document.addEventListener('DOMContentLoaded', fetchCompletedTasks);
+
 // Load tasks on page load
 document.addEventListener('DOMContentLoaded', fetchTasks);
