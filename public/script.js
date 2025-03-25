@@ -428,13 +428,16 @@ async function fetchCompletedTasks() {
         completedTaskList.innerHTML = '';
         tasks.forEach(task => {
             const li = document.createElement('li');
-            li.className = 'task-item completed';
             li.innerHTML = `
                 <div class="task-content">
-                    <span class="task-name strikethrough">${task.task_name}</span>
+                    <span class="task-checkbox">
+                        <input type="checkbox" checked disabled>
+                        <span class="checkmark" style="background-color: #2ecc71"></span>
+                    </span>
+                    <span class="task-name">${task.task_name}</span>
                 </div>
                 <div class="task-actions">
-                    <small>Completed on: ${new Date(task.completed_at).toLocaleString()}</small>
+                    <small>Completed: ${new Date(task.completed_at).toLocaleDateString()}</small>
                 </div>
             `;
             completedTaskList.appendChild(li);
