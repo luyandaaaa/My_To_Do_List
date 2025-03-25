@@ -266,6 +266,41 @@ a.btn-primary:hover {
     align-items: center;
 }
 
+/* Profile Modal Styles */
+#profile-modal {
+    width: 600px;
+}
+
+.profile-content {
+    padding: 15px;
+}
+
+.profile-field {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-field label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.profile-field span {
+    flex-grow: 1;
+    text-align: right;
+}
+
+#logout-btn {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #e74c3c;
+}
+
+#logout-btn:hover {
+    background-color: #c0392b;
+}
 
 .new-task-btn {
     padding: 8px 16px;
@@ -275,6 +310,18 @@ a.btn-primary:hover {
     border-radius: 4px;
     cursor: pointer;
 }
+.user-icon {
+    font-size: 30px;
+    margin-left: 15px;
+    cursor: pointer;
+    color: #080808;
+    transition: all 0.3s ease;
+}
+.user-icon:hover {
+    transform: scale(1.1);
+    color: #3a56c4;
+}
+
 
 .categories {
     margin-top: 30px;

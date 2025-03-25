@@ -22,6 +22,7 @@
                 </div>
                 <div class="search-new-task">
                     <button class="new-task-btn" id="new-task-btn">+ New Task</button>
+                    <i class="fa-solid fa-user user-icon" id="user-icon"></i>
                 </div>
             </div>
 
@@ -135,6 +136,21 @@
                 <button type="button" id="cancel-btn">Cancel</button>
             </div>
         </form>
+    </div>
+    <div class="modal" id="profile-modal">
+        <span class="close-modal" id="close-profile-modal">&times;</span>
+        <h2>Profile</h2>
+        <div class="profile-content">
+            <div class="profile-field">
+                <label>Name:</label>
+                <span id="profile-name"></span>
+            </div>
+            <div class="profile-field">
+                <label>Email:</label>
+                <span id="profile-email"></span>
+            </div>
+            <button id="logout-btn" class="btn">Logout</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

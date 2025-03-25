@@ -120,17 +120,15 @@ app.listen(PORT, () => {
 
 // Add this endpoint to fetch user data
 app.get("/user", async (req, res) => {
-    // Assuming you store the user's email in a session after login
-    const userEmail = req.session.userEmail; // You need to set this during login
-
+    const userEmail = req.session.userEmail;
     if (!userEmail) {
         return res.status(401).json({ error: "Unauthorized" });
     }
 
     try {
-        const result = await db.query("SELECT name FROM users WHERE email = $1", [userEmail]);
+        const result = await db.query("SELECT name, email FROM users WHERE email = $1", [userEmail]);
         if (result.rows.length > 0) {
-            res.json({ name: result.rows[0].name });
+            res.json({ name: result.rows[0].name, email: result.rows[0].email });
         } else {
             res.status(404).json({ error: "User not found" });
         }
@@ -339,4 +337,15 @@ app.get('/completed-tasks', async (req, res) => {
         console.error("Error fetching completed tasks:", err);
         res.status(500).json({ error: "Internal server error" });
     }
+});
+
+app.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            return res.status(500).json({ error: 'Logout failed' });
+        }
+        res.clearCookie('connect.sid'); // This is the default session cookie name
+        res.json({ success: true });
+    });
 });

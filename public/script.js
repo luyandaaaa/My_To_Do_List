@@ -1,250 +1,272 @@
+// Login Form Handling
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('signup-form');
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-
-        // Client-side validation
-        if (!name || !email || !password || !confirmPassword) {
-            alert('All fields are required');
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-            return;
-        }
-
-        // Prepare data to send to the server
-        const data = { name, email, password, confirmPassword };
-
-        try {
-            const response = await fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                window.location.href = '/home.html'; // Redirect to home page
-            } else {
-                const result = await response.json();
-                alert(result.error);
+            if (!email || !password) {
+                alert('Email and password are required');
+                return;
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        }
-    });
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    window.location.href = '/home.html';
+                } else {
+                    const result = await response.json();
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
+
+    // Signup Form Handling
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (!name || !email || !password || !confirmPassword) {
+                alert('All fields are required');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password, confirmPassword })
+                });
+
+                if (response.ok) {
+                    window.location.href = '/home.html';
+                } else {
+                    const result = await response.json();
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    }
 });
 
-/* scriptfor home page*/
-document.addEventListener('DOMContentLoaded', function () {
+// Home Page Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Global user data cache
+    let userData = null;
+
+    // Fetch and cache user data
+    function fetchUserData() {
+        return fetch('/user')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                userData = data;
+                updateUserGreeting(data);
+                return data;
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+                throw error;
+            });
+    }
+
+    // Update greeting with user's name
+    function updateUserGreeting(data) {
+        const greetingElement = document.getElementById('user-greeting');
+        if (greetingElement) {
+            greetingElement.textContent = `What's up, ${data.name}!`;
+        }
+    }
+
+    // Initialize Calendar
     const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        initialDate: new Date(),
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: [
-            {
+    if (calendarEl) {
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            initialDate: new Date(),
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [{
                 title: 'Today',
                 start: new Date(),
                 allDay: true,
                 backgroundColor: '#ff9f89',
                 textColor: '#000'
-            }
-        ]
-    });
-    calendar.render();
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const newTaskBtn = document.getElementById('new-task-btn');
-    const overlay = document.getElementById('overlay');
-    const taskModal = document.getElementById('task-modal');
-    const closeModal = document.getElementById('close-modal');
-    const cancelBtn = document.getElementById('cancel-btn');
-    const plusIcons = document.querySelectorAll('.plus-icon'); // Select all plus icons
-
-    // Function to open the modal
-    function openModal() {
-        overlay.style.display = 'block';
-        taskModal.style.display = 'block';
+            }]
+        });
+        calendar.render();
     }
 
-    // Open modal for "New Task" button
-    newTaskBtn.addEventListener('click', openModal);
+    // Modal Management
+    const overlay = document.getElementById('overlay');
+    const taskModal = document.getElementById('task-modal');
+    const profileModal = document.getElementById('profile-modal');
 
-    // Open modal for plus icons
+    function showModal(modal) {
+        if (overlay) overlay.style.display = 'block';
+        if (modal) modal.style.display = 'block';
+    }
+
+    function hideModals() {
+        if (overlay) overlay.style.display = 'none';
+        if (taskModal) taskModal.style.display = 'none';
+        if (profileModal) profileModal.style.display = 'none';
+    }
+
+    // Task Modal Functionality
+    const newTaskBtn = document.getElementById('new-task-btn');
+    const closeModal = document.getElementById('close-modal');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const plusIcons = document.querySelectorAll('.plus-icon');
+
+    if (newTaskBtn) newTaskBtn.addEventListener('click', () => showModal(taskModal));
+
     plusIcons.forEach(icon => {
-        icon.addEventListener('click', function () {
-            const category = this.getAttribute('data-category'); // Get the category from the plus icon
+        icon.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
             const categoryRadio = document.querySelector(`input[name="task-category"][value="${category}"]`);
-            if (categoryRadio) {
-                categoryRadio.checked = true; // Pre-select the category in the modal
-            }
-            openModal(); // Open the modal
+            if (categoryRadio) categoryRadio.checked = true;
+            showModal(taskModal);
         });
     });
 
-    // Close modal
-    closeModal.addEventListener('click', () => {
-        overlay.style.display = 'none';
-        taskModal.style.display = 'none';
-    });
+    if (closeModal) closeModal.addEventListener('click', hideModals);
+    if (cancelBtn) cancelBtn.addEventListener('click', hideModals);
+    if (overlay) overlay.addEventListener('click', hideModals);
 
-    cancelBtn.addEventListener('click', () => {
-        overlay.style.display = 'none';
-        taskModal.style.display = 'none';
-    });
-
-    overlay.addEventListener('click', () => {
-        overlay.style.display = 'none';
-        taskModal.style.display = 'none';
-    });
-
-    // Prevent past dates
-    const taskDate = document.getElementById('task-date');
-    taskDate.min = new Date().toISOString().split('T')[0];
-
-    // Handle form submission
+    // Task Form Submission
     const taskForm = document.getElementById('task-form');
-    taskForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
+    if (taskForm) {
+        const taskDate = document.getElementById('task-date');
+        if (taskDate) taskDate.min = new Date().toISOString().split('T')[0];
 
-        const taskName = document.getElementById('task-name').value;
-        const taskCategory = document.querySelector('input[name="task-category"]:checked').value;
-        const taskDate = document.getElementById('task-date').value;
-        const startTime = document.getElementById('start-time').value;
-        const endTime = document.getElementById('end-time').value;
-        const taskDescription = document.getElementById('task-description').value;
+        taskForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const taskData = {
+                name: document.getElementById('task-name').value,
+                category: document.querySelector('input[name="task-category"]:checked').value,
+                date: document.getElementById('task-date').value,
+                startTime: document.getElementById('start-time').value,
+                endTime: document.getElementById('end-time').value,
+                description: document.getElementById('task-description').value
+            };
 
-        if (startTime >= endTime) {
-            alert('End time must be after start time.');
-            return;
-        }
-
-        const taskData = {
-            name: taskName,
-            category: taskCategory,
-            date: taskDate,
-            startTime: startTime,
-            endTime: endTime,
-            description: taskDescription
-        };
-
-        try {
-            const response = await fetch('/tasks', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(taskData)
-            });
-
-            if (response.ok) {
-                alert('Task created successfully!');
-                taskForm.reset();
-                overlay.style.display = 'none';
-                taskModal.style.display = 'none';
-                fetchTasks(); 
-            } else {
-                const result = await response.json();
-                alert(result.error);
+            if (taskData.startTime >= taskData.endTime) {
+                alert('End time must be after start time.');
+                return;
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        }
-        
-        // Clear form and close modal
-        taskForm.reset();
-        overlay.style.display = 'none';
-        taskModal.style.display = 'none';
-    });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Fetch the user's name from the server
-    fetch('/user')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            try {
+                const response = await fetch('/tasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(taskData)
+                });
+
+                if (response.ok) {
+                    alert('Task created successfully!');
+                    taskForm.reset();
+                    hideModals();
+                    fetchTasks();
+                } else {
+                    const result = await response.json();
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
             }
-            return response.json();
-        })
-        .then(data => {
-            // Update the greeting with the user's name
-            const greetingElement = document.getElementById('user-greeting');
-            if (greetingElement) {
-                greetingElement.textContent = `What's up, ${data.name}!`;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
         });
+    }
 
-    
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('login-form');
+    // Profile Modal Functionality
+    const closeProfileModal = document.getElementById('close-profile-modal');
+    const logoutBtn = document.getElementById('logout-btn');
+    const profileName = document.getElementById('profile-name');
+    const profileEmail = document.getElementById('profile-email');
+    const userIcon = document.getElementById('user-icon');
 
-    loginForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        // Client-side validation
-        if (!email || !password) {
-            alert('Email and password are required');
-            return;
-        }
-
-        // Prepare data to send to the server
-        const data = { email, password };
-
-        try {
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                window.location.href = '/home.html'; // Redirect to home page
+    if (userIcon) {
+        userIcon.addEventListener('click', function() {
+            if (userData) {
+                updateProfileModal(userData);
             } else {
-                const result = await response.json();
-                alert(result.error);
+                fetchUserData().then(updateProfileModal);
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
-        }
-    });
+        });
+    }
+
+    function updateProfileModal(data) {
+        if (profileName) profileName.textContent = data.name;
+        if (profileEmail) profileEmail.textContent = data.email || 'Not available';
+        showModal(profileModal);
+    }
+
+    if (closeProfileModal) closeProfileModal.addEventListener('click', hideModals);
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            fetch('/logout', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/';
+                    } else {
+                        alert('Logout failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    alert('Logout failed');
+                });
+        });
+    }
+
+    // Initial Data Loading
+    if (document.getElementById('user-greeting')) {
+        fetchUserData();
+        fetchTasks();
+        fetchCompletedTasks();
+    }
 });
 
+// Task Management Functions
 async function fetchTasks() {
     try {
         const response = await fetch('/tasks');
-        if (!response.ok) {
-            throw new Error('Failed to fetch tasks');
-        }
+        if (!response.ok) throw new Error('Failed to fetch tasks');
+        
         const tasks = await response.json();
         const taskList = document.getElementById('task-list');
+        if (!taskList) return;
 
         taskList.innerHTML = '';
         tasks.forEach(task => {
@@ -271,23 +293,8 @@ async function fetchTasks() {
             taskList.appendChild(li);
         });
 
-        
-        // Update category counts
         updateCategoryTaskCounts(tasks);
-
-        // Attach event listeners for toggling completion
-        document.querySelectorAll('.task-checkbox input').forEach(checkbox => {
-            checkbox.addEventListener('change', toggleTaskCompletion);
-        });
-
-        // Attach event listeners for edit and delete buttons
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', deleteTask);
-        });
-
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', editTask);
-        });
+        attachTaskEventListeners();
         updateTaskCounters();
     } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -295,41 +302,47 @@ async function fetchTasks() {
     }
 }
 
-// Function to toggle task completion
+function attachTaskEventListeners() {
+    document.querySelectorAll('.task-checkbox input').forEach(checkbox => {
+        checkbox.addEventListener('change', toggleTaskCompletion);
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', deleteTask);
+    });
+
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', editTask);
+    });
+}
+
 async function toggleTaskCompletion(event) {
     const checkbox = event.target;
     const taskId = checkbox.getAttribute('data-id');
     const table = checkbox.getAttribute('data-table');
 
     try {
-        const response = await fetch(`/tasks/${table}/${taskId}/toggle`, { method: 'PATCH' });
+        const response = await fetch(`/tasks/${table}/${taskId}/toggle`, { 
+            method: 'PATCH' 
+        });
 
-        if (!response.ok) {
-            throw new Error('Failed to toggle task');
-        }
-
-        const result = await response.json();
+        if (!response.ok) throw new Error('Failed to toggle task');
         
-        if (result.success) {
-            fetchTasks(); // Refresh the task list after completion
-        }
+        const result = await response.json();
+        if (result.success) fetchTasks();
     } catch (error) {
         console.error("Error toggling task:", error);
         alert('Failed to update task. Please try again.');
     }
 }
 
-
-
 async function deleteTask(event) {
-    // Get the button element (might be the icon or the button itself)
     const button = event.target.closest('.delete-btn');
     if (!button) return;
 
     const id = button.dataset.id;
     const table = button.dataset.table;
 
-    // Create a confirmation modal dynamically
     const modal = document.createElement('div');
     modal.classList.add('delete-modal');
     modal.innerHTML = `
@@ -343,29 +356,24 @@ async function deleteTask(event) {
 
     document.body.appendChild(modal);
 
-    // Close modal when clicking the X button
     modal.querySelector('.close-delete-modal').addEventListener('click', () => {
         document.body.removeChild(modal);
     });
 
-    // Close modal when clicking Cancel
     modal.querySelector('#cancel-delete').addEventListener('click', () => {
         document.body.removeChild(modal);
     });
 
-    // Handle confirm delete
     modal.querySelector('#confirm-delete').addEventListener('click', async () => {
         try {
             const response = await fetch(`/tasks/${table}/${id}`, { 
                 method: 'DELETE' 
             });
             
-            if (!response.ok) {
-                throw new Error('Failed to delete task');
-            }
+            if (!response.ok) throw new Error('Failed to delete task');
             
             document.body.removeChild(modal);
-            fetchTasks(); // Refresh tasks
+            fetchTasks();
         } catch (error) {
             console.error("Error deleting task:", error);
             document.body.removeChild(modal);
@@ -373,16 +381,12 @@ async function deleteTask(event) {
         }
     });
 
-    // Close modal when clicking outside
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            document.body.removeChild(modal);
-        }
+        if (e.target === modal) document.body.removeChild(modal);
     });
 }
 
 async function editTask(event) {
-    // Get the button element (might be the icon or the button itself)
     const button = event.target.closest('.edit-btn');
     if (!button) return;
 
@@ -398,11 +402,9 @@ async function editTask(event) {
                 body: JSON.stringify({ task_name: newName })
             });
             
-            if (!response.ok) {
-                throw new Error('Failed to update task');
-            }
+            if (!response.ok) throw new Error('Failed to update task');
             
-            fetchTasks(); // Refresh tasks
+            fetchTasks();
         } catch (error) {
             console.error("Error updating task:", error);
             alert('Failed to update task. Please try again.');
@@ -410,24 +412,25 @@ async function editTask(event) {
     }
 }
 
-// Update task counters
 function updateTaskCounters() {
     const activeTasks = document.querySelectorAll('#task-list li').length;
     const completedTasks = document.querySelectorAll('#completed-task-list li').length;
     
-    document.getElementById('task-counter').textContent = activeTasks;
-    document.getElementById('completed-counter').textContent = `(${completedTasks})`;
+    const taskCounter = document.getElementById('task-counter');
+    const completedCounter = document.getElementById('completed-counter');
+    
+    if (taskCounter) taskCounter.textContent = activeTasks;
+    if (completedCounter) completedCounter.textContent = `(${completedTasks})`;
 }
 
 async function fetchCompletedTasks() {
     try {
         const response = await fetch('/completed-tasks');
-        if (!response.ok) {
-            throw new Error('Failed to fetch completed tasks');
-        }
+        if (!response.ok) throw new Error('Failed to fetch completed tasks');
 
         const tasks = await response.json();
         const completedTaskList = document.getElementById('completed-task-list');
+        if (!completedTaskList) return;
         
         completedTaskList.innerHTML = '';
         tasks.forEach(task => {
@@ -452,58 +455,32 @@ async function fetchCompletedTasks() {
     }
 }
 
-// Function to count tasks by category and update the UI
 function updateCategoryTaskCounts(tasks) {
-    console.log("Tasks received:", tasks); // Debugging
-    
-    const categoryCounts = {
-        work: 0,
-        personal: 0,
-        shopping: 0,
-        health: 0
-    };
+    const categoryCounts = { work: 0, personal: 0, shopping: 0, health: 0 };
 
     tasks.forEach(task => {
-        console.log("Task category:", task.category); // Debugging
         if (task.category && categoryCounts.hasOwnProperty(task.category)) {
             categoryCounts[task.category]++;
         }
     });
 
-    console.log("Category counts:", categoryCounts); // Debugging
-
     Object.keys(categoryCounts).forEach(category => {
         const countElement = document.querySelector(`.category.${category} .count-number`);
         const taskTextElement = document.querySelector(`.category.${category} .task-count`);
-        
-        console.log(`Updating ${category}:`, countElement, taskTextElement); // Debugging
         
         if (countElement && taskTextElement) {
             const count = categoryCounts[category];
             countElement.textContent = count;
             
-            // Find and update the text node
             const textNodes = Array.from(taskTextElement.childNodes)
                 .filter(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
             
             if (textNodes.length > 0) {
                 textNodes[0].textContent = count === 1 ? ' task' : ' tasks';
             } else {
-                // Fallback if text node not found
                 const textNode = document.createTextNode(count === 1 ? ' task' : ' tasks');
                 taskTextElement.appendChild(textNode);
             }
         }
     });
 }
-
-
-// Load completed tasks on page load
-document.addEventListener('DOMContentLoaded', fetchCompletedTasks);
-
-// Load tasks on page load
-document.addEventListener('DOMContentLoaded', fetchTasks);
-// Make sure to call fetchTasks when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    fetchTasks();
-});
