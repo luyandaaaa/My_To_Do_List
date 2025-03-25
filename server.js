@@ -183,27 +183,6 @@ app.post('/tasks', async (req, res) => {
         );
 
         res.status(201).json(result.rows[0]);
-
-        const queries = [
-            { table: "work_tasks", category: "work" },
-            { table: "personal_tasks", category: "personal" },
-            { table: "shopping_tasks", category: "shopping" },
-            { table: "health_tasks", category: "health" }
-        ];
-
-        let allTasks = [];
-        for (const { table, category } of queries) {
-            const result = await db.query(`SELECT id, name, completed FROM ${table} WHERE user_id = $1`, [userId]);
-            allTasks.push(...result.rows.map(task => ({
-                id: task.id,
-                name: task.name,
-                category: category,
-                table: table
-            })));
-        }
-
-        res.json(allTasks);
-
     } catch (err) {
         console.error("Error creating task:", err);
         res.status(500).json({ error: "Internal server error" });
@@ -226,12 +205,66 @@ app.put('/tasks/:table/:id', async (req, res) => {
     const { table, id } = req.params;
     const { task_name } = req.body;
 
+    // Validate parameters
+    if (!table || !id || !task_name) {
+        return res.status(400).json({ error: "Missing required parameters" });
+    }
+
     try {
-        await db.query(`UPDATE ${table} SET task_name = $1 WHERE id = $2`, [task_name, id]);
-        res.json({ success: true, message: "Task updated" });
+        const result = await db.query(
+            `UPDATE ${table} SET task_name = $1 WHERE id = $2 RETURNING *`,
+            [task_name, id]
+        );
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+        
+        res.json({ success: true, message: "Task updated", task: result.rows[0] });
     } catch (err) {
         console.error("Error updating task:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+app.get('/tasks', async (req, res) => {
+    const userEmail = req.session.userEmail;
+    if (!userEmail) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
 
+    try {
+        const userResult = await db.query("SELECT userid FROM users WHERE email = $1", [userEmail]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const userId = userResult.rows[0].userid;
+
+        const queries = [
+            { table: "work_tasks", category: "work" },
+            { table: "personal_tasks", category: "personal" },
+            { table: "shopping_tasks", category: "shopping" },
+            { table: "health_tasks", category: "health" }
+        ];
+
+        let allTasks = [];
+        for (const { table, category } of queries) {
+            const result = await db.query(
+                `SELECT id, task_name as name, description, completed FROM ${table} WHERE user_id = $1`, 
+                [userId]
+            );
+            allTasks.push(...result.rows.map(task => ({
+                id: task.id,
+                name: task.name,
+                description: task.description,
+                completed: task.completed,
+                category: category,
+                table: table
+            })));
+        }
+
+        res.json(allTasks);
+    } catch (err) {
+        console.error("Error fetching tasks:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});

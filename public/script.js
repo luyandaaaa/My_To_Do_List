@@ -240,14 +240,17 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchTasks() {
     try {
         const response = await fetch('/tasks');
+        if (!response.ok) {
+            throw new Error('Failed to fetch tasks');
+        }
         const tasks = await response.json();
         const taskList = document.getElementById('task-list');
 
-        taskList.innerHTML = ''; // Clear existing tasks
+        taskList.innerHTML = '';
         tasks.forEach(task => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <span class="task-name">${task.task_name}</span>
+                <span class="task-name">${task.name}</span>
                 <div class="task-actions">
                     <button class="edit-btn" data-id="${task.id}" data-table="${task.table}">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -260,7 +263,7 @@ async function fetchTasks() {
             taskList.appendChild(li);
         });
 
-        // Attach event listeners
+        // Attach event listeners to the buttons (not the icons)
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', deleteTask);
         });
@@ -268,42 +271,98 @@ async function fetchTasks() {
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', editTask);
         });
-
     } catch (error) {
         console.error("Error fetching tasks:", error);
+        alert('Failed to load tasks. Please try again.');
     }
 }
-
 async function deleteTask(event) {
-    const id = event.target.dataset.id;
-    const table = event.target.dataset.table;
+    // Get the button element (might be the icon or the button itself)
+    const button = event.target.closest('.delete-btn');
+    if (!button) return;
 
-    try {
-        await fetch(`/tasks/${table}/${id}`, { method: 'DELETE' });
-        fetchTasks(); // Refresh tasks
-    } catch (error) {
-        console.error("Error deleting task:", error);
-    }
+    const id = button.dataset.id;
+    const table = button.dataset.table;
+
+    // Create a confirmation modal dynamically
+    const modal = document.createElement('div');
+    modal.classList.add('delete-modal');
+    modal.innerHTML = `
+        <div class="delete-modal-content">
+            <span class="close-delete-modal">&times;</span>
+            <p>Are you sure you want to delete this task?</p>
+            <button id="confirm-delete">Delete</button>
+            <button id="cancel-delete">Cancel</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close modal when clicking the X button
+    modal.querySelector('.close-delete-modal').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+
+    // Close modal when clicking Cancel
+    modal.querySelector('#cancel-delete').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+
+    // Handle confirm delete
+    modal.querySelector('#confirm-delete').addEventListener('click', async () => {
+        try {
+            const response = await fetch(`/tasks/${table}/${id}`, { 
+                method: 'DELETE' 
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to delete task');
+            }
+            
+            document.body.removeChild(modal);
+            fetchTasks(); // Refresh tasks
+        } catch (error) {
+            console.error("Error deleting task:", error);
+            document.body.removeChild(modal);
+            alert('Failed to delete task. Please try again.');
+        }
+    });
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
 }
 
 async function editTask(event) {
-    const id = event.target.dataset.id;
-    const table = event.target.dataset.table;
+    // Get the button element (might be the icon or the button itself)
+    const button = event.target.closest('.edit-btn');
+    if (!button) return;
+
+    const id = button.dataset.id;
+    const table = button.dataset.table;
     const newName = prompt("Enter new task name:");
 
     if (newName) {
         try {
-            await fetch(`/tasks/${table}/${id}`, {
+            const response = await fetch(`/tasks/${table}/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ task_name: newName})
+                body: JSON.stringify({ task_name: newName })
             });
+            
+            if (!response.ok) {
+                throw new Error('Failed to update task');
+            }
+            
             fetchTasks(); // Refresh tasks
         } catch (error) {
             console.error("Error updating task:", error);
+            alert('Failed to update task. Please try again.');
         }
     }
 }
-
 // Load tasks on page load
 document.addEventListener('DOMContentLoaded', fetchTasks);
