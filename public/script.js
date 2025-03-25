@@ -496,6 +496,8 @@ function updateCategoryTaskCounts(tasks) {
         }
     });
 }
+
+
 // Load completed tasks on page load
 document.addEventListener('DOMContentLoaded', fetchCompletedTasks);
 

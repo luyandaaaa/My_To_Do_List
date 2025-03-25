@@ -228,49 +228,10 @@ a.btn-primary:hover {
 }
 
 /* Adjust the sidebar and main-content to fit within the home-container */
-.sidebar {
-    width: 200px;
-    background-color: #4f6ef8;
-    color: white;
-    height: 100vh; /* Full height */
-    padding: 20px;
-}
-.sidebar nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%; /* Ensure the nav takes the full height of the sidebar */
-}
-.sidebar nav ul li a.active {
-    background-color: rgb(123, 236, 17);
-    color: white;
-  }
-.sidebar nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
-}
-
 .main-content {
     flex-grow: 1;
     padding: 20px;
 }
-
-
-.sidebar nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar nav ul li {
-    margin-bottom: 15px;
-}
-
-.sidebar nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 10px 90px; /* Add padding for better clickability */
-}
-
 .main-content {
     flex-grow: 1;
     padding: 20px;
@@ -305,12 +266,6 @@ a.btn-primary:hover {
     align-items: center;
 }
 
-.search-field {
-    padding: 8px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
 
 .new-task-btn {
     padding: 8px 16px;
@@ -820,3 +775,4 @@ textarea {
     text-decoration: line-through;
     color: grey;
 }
+
