@@ -284,6 +284,7 @@ async function fetchTasks() {
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', editTask);
         });
+        updateTaskCounters();
     } catch (error) {
         console.error("Error fetching tasks:", error);
         alert('Failed to load tasks. Please try again.');
@@ -405,6 +406,15 @@ async function editTask(event) {
     }
 }
 
+// Update task counters
+function updateTaskCounters() {
+    const activeTasks = document.querySelectorAll('#task-list li').length;
+    const completedTasks = document.querySelectorAll('#completed-task-list li').length;
+    
+    document.getElementById('task-counter').textContent = activeTasks;
+    document.getElementById('completed-counter').textContent = `(${completedTasks})`;
+}
+
 async function fetchCompletedTasks() {
     try {
         const response = await fetch('/completed-tasks');
@@ -429,6 +439,7 @@ async function fetchCompletedTasks() {
             `;
             completedTaskList.appendChild(li);
         });
+        updateTaskCounters();
     } catch (error) {
         console.error("Error fetching completed tasks:", error);
     }

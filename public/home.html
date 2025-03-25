@@ -63,26 +63,28 @@
                     </div>
                 </div>
             </div>
-
             <div class="task-grid">
                 <h2>Your Tasks</h2>
                 <div class="tasks-container">
-                    <div class="task-column">
-                        <p>no of tasks</p>
-                        <ul id="task-list">
-                            <!-- Tasks will be inserted here -->
-                        </ul>
-                        <h2>Completed Tasks</h2>
-                        <ul id="completed-task-list"></ul>
-                        
+                    <div class="left-column">
+                        <div class="tasks-section">
+                            <p class="task-count">You have <span id="task-counter">0</span> active tasks</p>
+                            <ul id="task-list">
+                                <!-- Active tasks will appear here -->
+                            </ul>
+                        </div>
+                        <div class="completed-section">
+                            <h2>Completed Tasks <span id="completed-counter">(0)</span></h2>
+                            <ul id="completed-task-list">
+                                <!-- Completed tasks will appear here -->
+                            </ul>
+                        </div>
                     </div>
-                    <div class="task-column">
+                    <div class="right-column">
                         <div id="calendar"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
     <div class="overlay" id="overlay"></div>
     <div class="modal" id="task-modal">
