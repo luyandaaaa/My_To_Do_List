@@ -291,12 +291,13 @@ a.btn-primary:hover {
 }
 
 .whats-up {
-    font-size: 18px;
+    font-size: 25px;
     margin-right: 10px;
-}
-
-.user-icon {
-    font-size: 24px;
+    font-family: "Fruktur", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #4f6ef8; /* Matching your sidebar color */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
 }
 
 .search-new-task {
@@ -325,9 +326,13 @@ a.btn-primary:hover {
 }
 
 .categories p {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 21px;
     margin-bottom: 15px; /* Space between "Categories" and the boxes */
+    font-family: "Fruktur", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #4f6ef8; /* Matching your sidebar color */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
 }
 
 .category-container {
@@ -342,25 +347,53 @@ a.btn-primary:hover {
     color: white;
     position: relative;
     height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 150px; /* Ensure cards don't get too narrow */
 }
 
 .category .category-name {
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: auto; /* Push to top */
 }
 
 .category .task-count {
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: auto; /* Push to bottom */
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    position: relative; /* Add this for absolute positioning of plus icon */
 }
-
 .category .plus-icon {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    right: 0;
+    bottom: 0;
     font-size: 20px;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin: 0; /* Remove any margins */
 }
+
+.category .plus-icon:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1);
+}
+
+.count-number {
+    margin-right: 5px;
+}
+
 
 .work {
     background-color: #3498db;
@@ -378,18 +411,20 @@ a.btn-primary:hover {
     background-color: #2ecc71;
 }
 .task-grid {
-    margin: 30px;
-    margin-top: 60px;
+    margin: 5px;
+    margin-top: 40px;
 }
 
 .task-grid h2 {
-    font-size: 20px;
+    font-size: 25px;
     margin-bottom: 15px;
+    font-family: "Fruktur", cursive;
+    font-weight: 400;
+    font-style: normal;
+    color: #4f6ef8; /* Matching your sidebar color */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
 }
-.task-column h2{
-    font-size: 20px;
-    margin-top: 50px;
-}
+
 .tasks-container {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -425,7 +460,6 @@ a.btn-primary:hover {
 }
 
 .completed-section h2 {
-    color: #27ae60;
     margin-bottom: 15px;
     font-size: 1.2rem;
 }
@@ -501,6 +535,7 @@ a.btn-primary:hover {
     border-radius: 12px;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    color: #000;
 }
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -623,18 +658,7 @@ textarea {
     background-color: #f1d03c;
     color: white;
 }
-.plus-icon {
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 5px;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
 
-.plus-icon:hover {
-    background-color: #98dee7;
-}
 /* Task List Styling */
 #task-list {
     list-style: none;

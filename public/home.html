@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fruktur:ital@0;1&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 </head>
 <body>
     <div class="home-container">
         <div class="sidebar">
-            <!-- Move only the user icon here -->
-            <span class="user-icon">👤</span>
             <nav>
                 <ul>
                     <li><a class="active" href="#">Home</a></li>
@@ -43,23 +44,31 @@
                 <div class="category-container"> 
                     <div class="category work" data-category="work">
                         <span class="category-name">Work</span>
-                        <span class="task-count">4 tasks</span>
-                        <span class="plus-icon" data-category="work">+</span>
+                        <span class="task-count">
+                            <span class="count-number">0</span> tasks
+                            <span class="plus-icon" data-category="work">+</span>
+                        </span>
                     </div>
                     <div class="category personal" data-category="personal">
                         <span class="category-name">Personal</span>
-                        <span class="task-count">3 tasks</span>
-                        <span class="plus-icon" data-category="personal">+</span>
+                        <span class="task-count">
+                            <span class="count-number">0</span> tasks
+                            <span class="plus-icon" data-category="personal">+</span>
+                        </span>
                     </div>
                     <div class="category shopping" data-category="shopping">
                         <span class="category-name">Shopping</span>
-                        <span class="task-count">2 tasks</span>
-                        <span class="plus-icon" data-category="shopping">+</span>
+                        <span class="task-count">
+                            <span class="count-number">0</span> tasks
+                            <span class="plus-icon" data-category="shopping">+</span>
+                        </span>
                     </div>
                     <div class="category health" data-category="health">
                         <span class="category-name">Health</span>
-                        <span class="task-count">1 task</span>
-                        <span class="plus-icon" data-category="health">+</span>
+                        <span class="task-count">
+                            <span class="count-number">0</span> task
+                            <span class="plus-icon" data-category="health">+</span>
+                        </span>
                     </div>
                 </div>
             </div>

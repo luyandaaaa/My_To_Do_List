@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 taskForm.reset();
                 overlay.style.display = 'none';
                 taskModal.style.display = 'none';
-                // Optionally, refresh the task list or calendar
+                fetchTasks(); 
             } else {
                 const result = await response.json();
                 alert(result.error);
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching user data:', error);
         });
 
-    // Rest of your existing JavaScript code...
+    
 });
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
@@ -270,6 +270,10 @@ async function fetchTasks() {
             `;
             taskList.appendChild(li);
         });
+
+        
+        // Update category counts
+        updateCategoryTaskCounts(tasks);
 
         // Attach event listeners for toggling completion
         document.querySelectorAll('.task-checkbox input').forEach(checkbox => {
@@ -448,8 +452,56 @@ async function fetchCompletedTasks() {
     }
 }
 
+// Function to count tasks by category and update the UI
+function updateCategoryTaskCounts(tasks) {
+    console.log("Tasks received:", tasks); // Debugging
+    
+    const categoryCounts = {
+        work: 0,
+        personal: 0,
+        shopping: 0,
+        health: 0
+    };
+
+    tasks.forEach(task => {
+        console.log("Task category:", task.category); // Debugging
+        if (task.category && categoryCounts.hasOwnProperty(task.category)) {
+            categoryCounts[task.category]++;
+        }
+    });
+
+    console.log("Category counts:", categoryCounts); // Debugging
+
+    Object.keys(categoryCounts).forEach(category => {
+        const countElement = document.querySelector(`.category.${category} .count-number`);
+        const taskTextElement = document.querySelector(`.category.${category} .task-count`);
+        
+        console.log(`Updating ${category}:`, countElement, taskTextElement); // Debugging
+        
+        if (countElement && taskTextElement) {
+            const count = categoryCounts[category];
+            countElement.textContent = count;
+            
+            // Find and update the text node
+            const textNodes = Array.from(taskTextElement.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
+            
+            if (textNodes.length > 0) {
+                textNodes[0].textContent = count === 1 ? ' task' : ' tasks';
+            } else {
+                // Fallback if text node not found
+                const textNode = document.createTextNode(count === 1 ? ' task' : ' tasks');
+                taskTextElement.appendChild(textNode);
+            }
+        }
+    });
+}
 // Load completed tasks on page load
 document.addEventListener('DOMContentLoaded', fetchCompletedTasks);
 
 // Load tasks on page load
 document.addEventListener('DOMContentLoaded', fetchTasks);
+// Make sure to call fetchTasks when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    fetchTasks();
+});
