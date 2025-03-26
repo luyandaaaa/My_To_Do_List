@@ -7,5 +7,24 @@
     "og": "^0.0.2",
     "pg": "^8.14.1"
   },
-  "type": "module"
+  "type": "module",
+  "name": "my_to_do_list",
+  "version": "1.0.0",
+  "description": "Welcome to the To-Do List website! This project is designed to help users manage tasks and stay organized. The website allows you to easily add, edit, and delete tasks, and provides a clear interface for managing your to-do items. It is built using: HTML, CSS, JavaScript, Node js, ensuring a smooth and responsive experience across all devices.",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luyandaaaa/My_To_Do_List.git"
+  },
+  "author": "Luyanda Xhakaza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luyandaaaa/My_To_Do_List/issues"
+  },
+  "homepage": "https://github.com/luyandaaaa/My_To_Do_List#readme"
 }
