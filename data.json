@@ -17,6 +17,12 @@
       "name": "luyanda",
       "email": "test@gmail.com",
       "password": "$2b$10$oBNLvVwJUp3dMB/V3cayjeyv6l0iFXv76XQltvrErrPcpFsEj8TPG"
+    },
+    {
+      "id": "1743096231715",
+      "name": "luya",
+      "email": "mi@gmail.com",
+      "password": "$2b$10$pwLaVNbczEKc2ZKqWU/W8OJOKbKSeqfDqQYefS/zp7zV8pHtKN5zi"
     }
   ],
   "tasks": {
@@ -97,6 +103,61 @@
           "createdAt": "2025-03-27T12:59:58.869Z",
           "completedAt": "2025-03-27T13:00:07.867Z",
           "originalCategory": "shopping"
+        }
+      ]
+    },
+    "1743096231715": {
+      "work": [
+        {
+          "id": "1743099286753",
+          "name": "dev hundred tools",
+          "date": "2025-03-27",
+          "startTime": "20:14",
+          "endTime": "20:17",
+          "description": "text",
+          "completed": false,
+          "createdAt": "2025-03-27T18:14:46.753Z"
+        }
+      ],
+      "personal": [],
+      "shopping": [],
+      "health": [],
+      "completed": [
+        {
+          "id": "1743096292933",
+          "name": "dev",
+          "date": "2025-03-28",
+          "startTime": "19:24",
+          "endTime": "22:24",
+          "description": "description",
+          "completed": true,
+          "createdAt": "2025-03-27T17:24:52.933Z",
+          "completedAt": "2025-03-27T17:25:29.470Z",
+          "originalCategory": "work"
+        },
+        {
+          "id": "1743096303829",
+          "name": "developer",
+          "date": "2025-03-28",
+          "startTime": "19:24",
+          "endTime": "22:24",
+          "description": "description",
+          "completed": true,
+          "createdAt": "2025-03-27T17:25:03.829Z",
+          "completedAt": "2025-03-27T17:25:33.035Z",
+          "originalCategory": "work"
+        },
+        {
+          "id": "1743098733165",
+          "name": "dev1",
+          "date": "2025-03-27",
+          "startTime": "21:25",
+          "endTime": "23:25",
+          "description": "description",
+          "completed": true,
+          "createdAt": "2025-03-27T18:05:33.165Z",
+          "completedAt": "2025-03-27T18:05:46.460Z",
+          "originalCategory": "work"
         }
       ]
     }

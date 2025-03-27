@@ -13,7 +13,6 @@ const DATA_FILE = 'data.json';
 async function initializeDataFile() {
     try {
         await fs.access(DATA_FILE);
-        // Verify the file has the correct structure
         const data = await readData();
         if (!data.users || !data.tasks) {
             await fs.writeFile(DATA_FILE, JSON.stringify({
@@ -40,7 +39,7 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-// Read data helper with error handling
+// Read data helper
 async function readData() {
     try {
         const data = await fs.readFile(DATA_FILE, 'utf8');
@@ -51,7 +50,7 @@ async function readData() {
     }
 }
 
-// Write data helper with error handling
+// Write data helper
 async function writeData(data) {
     try {
         await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2));
@@ -64,12 +63,11 @@ async function writeData(data) {
 // Initialize data file on startup
 initializeDataFile().catch(console.error);
 
-// Serve the landing page
+// Serve static files
 app.get("/", (req, res) => {
     res.sendFile(path.join(process.cwd(), "public", "index.html"));
 });
 
-// Serve all HTML files
 app.get("/:page.html", (req, res) => {
     res.sendFile(path.join(process.cwd(), "public", `${req.params.page}.html`));
 });
@@ -294,24 +292,33 @@ app.put('/tasks/:category/:id', async (req, res) => {
             return res.status(404).json({ error: "Category not found" });
         }
 
-        const task = data.tasks[userId][category].find(t => t.id === id);
-        if (!task) {
+        const taskIndex = data.tasks[userId][category].findIndex(t => t.id === id);
+        if (taskIndex === -1) {
             return res.status(404).json({ error: "Task not found" });
         }
 
         // Update task properties
-        if (name) task.name = name;
-        if (date) task.date = date;
-        if (startTime) task.startTime = startTime;
-        if (endTime) task.endTime = endTime;
-        if (description) task.description = description;
+        const task = data.tasks[userId][category][taskIndex];
+        task.name = name || task.name;
+        task.date = date || task.date;
+        task.startTime = startTime || task.startTime;
+        task.endTime = endTime || task.endTime;
+        task.description = description || task.description;
 
         await writeData(data);
         
-        res.json({ success: true, message: "Task updated", task });
+        res.json({ 
+            success: true, 
+            message: "Task updated successfully",
+            task: task,
+            category: category
+        });
     } catch (err) {
         console.error("Error updating task:", err);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ 
+            error: "Internal server error",
+            details: err.message 
+        });
     }
 });
 
