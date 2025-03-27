@@ -4,8 +4,13 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,6 +18,7 @@ body {
     background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
     animation: changeBackground 15s infinite;
     overflow-x: hidden;
+    padding: 20px;
 }
 
 @keyframes changeBackground {
@@ -26,23 +32,23 @@ body {
         background: linear-gradient(135deg, #7829a0, plum, #db3eb1);
     }
 }
+
 .container {
     max-width: 600px;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 15px;
 }
 
 .container img {
-    max-width: 550px;
-    width: 90%;
+    max-width: 100%;
+    width: min(550px, 90%);
     height: auto;
-    margin-bottom: 40px;
-    margin-top: 40px;
+    margin: 20px 0;
     border-radius: 50%;
     background: linear-gradient(135deg, #744188, #e96be9, #6e4a77);
     padding: 10px;
@@ -66,28 +72,31 @@ h1.fruktur-regular-italic {
     font-family: "Fruktur", system-ui;
     font-weight: 400;
     font-style: italic;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #0a0a0a;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
 }
 
 p.courgette-regular {
     font-family: "Courgette", cursive;
     font-weight: 900;
     font-style: normal;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #0f0f0f;
+    font-size: clamp(1rem, 3vw, 1.2rem);
 }
 
 p.trade-winds-regular {
     font-family: "Trade Winds", cursive;
     font-weight: 400;
     font-style: normal;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #0f0f0f;
+    font-size: clamp(1rem, 3vw, 1.2rem);
 }
 
 a.btn-primary {
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 1em;
     background-color: #9224ec;
     color: white;
@@ -98,30 +107,34 @@ a.btn-primary {
     text-decoration: none;
     display: inline-block;
     margin-top: 20px;
+    min-width: 120px;
 }
 
 a.btn-primary:hover {
     background-color: #8c3d66;
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: 0 0 15px rgba(134, 245, 60, 0.8);
 }
 
 .login-container {
     max-width: 1000px;
     width: 100%;
-    height: 700px;
+    min-height: auto;
+    height: auto;
     text-align: center;
     background: rgb(245, 245, 252);
     padding: 20px;
-    border-radius: 50px;
+    border-radius: 30px;
     box-shadow: none;
     border: 2px solid darkmagenta;
+    margin: 20px 0;
 }
 
-
 .login-image {
-    width: 350px;
-    height: 350px;
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    aspect-ratio: 1/1;
     border-radius: 20%;
     margin-bottom: 20px;
     border: 2px solid blueviolet;
@@ -136,6 +149,7 @@ a.btn-primary:hover {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
 }
 
 .form-group {
@@ -146,15 +160,17 @@ a.btn-primary:hover {
     border-radius: 5px;
     background: rgb(240, 239, 235);
     padding: 0 10px;
+    width: 100%;
 }
 
 .form-group input {
     flex: 1;
     border: none;
     background: transparent;
-    padding: 10px 0;
+    padding: 12px 0;
     font-size: 1em;
     outline: none;
+    min-height: 48px;
 }
 
 .icon {
@@ -165,21 +181,24 @@ a.btn-primary:hover {
 .sign-up-text {
     margin-top: 15px;
     color: #333;
+    font-size: 0.9em;
 }
 
 .sign-up-text a {
     color: #0a0a0a;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .sign-up-text a:hover {
-    text-decoration: none;
+    text-decoration: underline;
     color: blue;
 }
 
 .btn {
-    width: 200px;
-    padding: 10px;
+    width: 100%;
+    max-width: 200px;
+    padding: 12px;
     background-color: darkmagenta;
     color: white;
     border: none;
@@ -187,68 +206,78 @@ a.btn-primary:hover {
     font-size: 1em;
     cursor: pointer;
     margin: 0 auto;
+    min-height: 48px;
 }
 
 .btn:hover {
     background-color: #ebc395;
-    transform: scale(1.1);
-    box-shadow: 0 0 50px rgba(134, 245, 60, 0.8);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(134, 245, 60, 0.8);
 }
 
 .signup-container {
     background-color: #ffffff;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
     text-align: center;
+    margin: 20px auto;
 }
 
 .home-container {
     width: 100%;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     background: linear-gradient(135deg, #f8e3cf, #b0aae4);
     overflow: hidden;
 }
 
 .main-content {
     flex-grow: 1;
-    padding: 20px;
-    height: 80vh;
+    padding: 15px;
+    min-height: 80vh;
+    width: 100%;
 }
 
 .top-bar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    gap: 10px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .whats-up {
-    font-size: 25px;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     margin-right: 10px;
     font-family: "Fruktur", cursive;
     font-weight: 400;
     font-style: normal;
     color: #4f6ef8;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    white-space: nowrap;
 }
 
 .search-new-task {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 #profile-modal {
-    width: 600px;
+    width: 90%;
+    max-width: 600px;
 }
 
 .profile-content {
@@ -258,10 +287,11 @@ a.btn-primary:hover {
 .profile-field {
     margin-bottom: 15px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
-
 
 .profile-field label {
     font-weight: bold;
@@ -271,12 +301,14 @@ a.btn-primary:hover {
 .profile-field span {
     flex-grow: 1;
     text-align: right;
+    word-break: break-word;
 }
 
 #logout-btn {
     width: 100%;
     margin-top: 20px;
     background-color: #e74c3c;
+    padding: 12px;
 }
 
 #logout-btn:hover {
@@ -284,20 +316,24 @@ a.btn-primary:hover {
 }
 
 .new-task-btn {
-    padding: 8px 16px;
+    padding: 10px 16px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.9em;
+    min-height: 40px;
 }
 
 .user-icon {
-    font-size: 30px;
+    font-size: 1.8rem;
     margin-left: 15px;
     cursor: pointer;
     color: #080808;
     transition: all 0.3s ease;
+    min-width: 30px;
+    text-align: center;
 }
 
 .user-icon:hover {
@@ -306,11 +342,11 @@ a.btn-primary:hover {
 }
 
 .categories {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .categories p {
-    font-size: 25px;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     margin-bottom: 15px;
     font-family: "Fruktur", cursive;
     font-weight: 400;
@@ -321,31 +357,30 @@ a.btn-primary:hover {
 }
 
 .category-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
 }
 
 .category {
-    flex: 1;
     padding: 15px;
     border-radius: 8px;
     color: white;
     position: relative;
-    height: 150px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-width: 150px;
 }
 
 .category .category-name {
-    font-size: 18px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
     font-weight: bold;
     margin-bottom: auto;
 }
 
 .category .task-count {
-    font-size: 14px;
+    font-size: 0.9rem;
     margin-top: auto;
     padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -358,7 +393,7 @@ a.btn-primary:hover {
     position: absolute;
     right: 0;
     bottom: 0;
-    font-size: 20px;
+    font-size: 1rem;
     cursor: pointer;
     background: rgba(255, 255, 255, 0.2);
     width: 30px;
@@ -398,11 +433,11 @@ a.btn-primary:hover {
 
 .task-grid {
     margin: 5px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .task-grid h2 {
-    font-size: 25px;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     margin-bottom: 15px;
     font-family: "Fruktur", cursive;
     font-weight: 400;
@@ -413,13 +448,13 @@ a.btn-primary:hover {
 
 .tasks-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 20px;
-    height: 100%;
+    width: 100%;
 }
 
 .task-column {
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     background-color: lightcyan;
 }
@@ -427,25 +462,26 @@ a.btn-primary:hover {
 .left-column {
     display: grid;
     grid-template-rows: auto auto;
-    gap: 25px;
+    gap: 20px;
 }
 
 .right-column {
-    height: 100%;
+    height: auto;
 }
 
 .tasks-section, 
 .completed-section {
     background: rgb(224, 175, 247);
     border-radius: 12px;
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    height: 100%;
+    height: auto;
 }
 
 #task-counter {
     font-weight: bold;
     color: #2c3e50;
+    font-size: 1rem;
 }
 
 .completed-section h2 {
@@ -493,6 +529,7 @@ a.btn-primary:hover {
     color: #555;
     text-decoration: line-through;
     margin-left: 10px;
+    font-size: 0.9rem;
 }
 
 #completed-task-list .task-actions {
@@ -501,14 +538,13 @@ a.btn-primary:hover {
 }
 
 .task {
-    list-style: circle;
-    padding: 15px;
+    list-style: none;
+    padding: 12px;
     margin-bottom: 10px;
     border-radius: 4px;
     position: relative;
     padding-left: 30px;
-    list-style-type: none;
-    font-size: 15px;
+    font-size: 0.9rem;
 }
 
 .task::before {
@@ -520,31 +556,13 @@ a.btn-primary:hover {
 
 #calendar {
     width: 100%;
-    height: 500px;
+    height: 400px;
     background: rgb(224, 175, 247);
     border-radius: 12px;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     color: #000;
 }
-
-
-@media (max-width: 768px) {
-    .tasks-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .right-column {
-        grid-row: 1;
-    }
-    
-    #calendar {
-        height: 400px;
-    }
-}
-
-/* Remove the duplicate modal and overlay styles at the bottom of your file */
-/* Keep only this version: */
 
 .overlay {
     display: none;
@@ -564,12 +582,15 @@ a.btn-primary:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgb(242, 167, 245);
-    padding: 25px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1001;
-    width: 420px;
+    width: 90%;
+    max-width: 420px;
     font-family: 'Courier New', Courier, monospace;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .close-modal {
@@ -578,10 +599,13 @@ a.btn-primary:hover {
     right: 10px;
     font-size: 24px;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 5px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .form-group label {
@@ -589,6 +613,7 @@ a.btn-primary:hover {
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
+    font-size: 0.9rem;
 }
 
 .form-group input,
@@ -598,15 +623,16 @@ a.btn-primary:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 0.9rem;
     background: #faf5f5;
+    min-height: 40px;
 }
 
 .category-options {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 5px;
-    flex-wrap: wrap;
 }
 
 .category-options label {
@@ -617,15 +643,19 @@ a.btn-primary:hover {
     padding: 5px 10px;
     background: rgba(245, 215, 215, 0.979);
     border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
 }
 
 .time-container {
     display: flex;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .time-container > div {
     flex: 1;
+    min-width: 120px;
 }
 
 .time-container label {
@@ -633,28 +663,33 @@ a.btn-primary:hover {
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
+    font-size: 0.9rem;
 }
 
 textarea {
     height: 100px;
     resize: vertical;
+    min-height: 80px;
 }
 
 .form-buttons {
     display: flex;
-    gap: 15px;
-    margin-top: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .form-buttons button {
     flex: 1;
-    padding: 12px;
+    min-width: 120px;
+    padding: 10px;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 0.9rem;
     cursor: pointer;
     font-weight: bold;
     transition: all 0.2s ease;
+    min-height: 40px;
 }
 
 .form-buttons button[type="submit"] {
@@ -675,7 +710,6 @@ textarea {
     background-color: #e0bf2a;
 }
 
-
 #task-list {
     list-style: none;
     padding: 0;
@@ -684,19 +718,22 @@ textarea {
 
 .task-item {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     background: #f8f8f8;
-    padding: 15px;
+    padding: 12px;
     margin: 8px 0;
     border-radius: 8px;
     transition: all 0.3s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    gap: 10px;
 }
 
 .task-content {
     display: flex;
     align-items: center;
     flex-grow: 1;
+    min-width: 200px;
 }
 
 .task-checkbox {
@@ -704,7 +741,7 @@ textarea {
     display: inline-block;
     width: 20px;
     height: 20px;
-    margin-right: 15px;
+    margin-right: 10px;
     flex-shrink: 0;
 }
 
@@ -758,21 +795,24 @@ textarea {
 
 .task-details {
     flex-grow: 1;
+    min-width: 150px;
 }
 
 .task-name {
     font-weight: bold;
     margin-bottom: 5px;
+    font-size: 0.9rem;
 }
 
 .task-description {
     color: #666;
     margin-bottom: 5px;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .task-meta {
     display: flex;
+    flex-wrap: wrap;
     font-size: 0.8em;
     color: #888;
     gap: 10px;
@@ -780,16 +820,19 @@ textarea {
 
 .task-actions {
     display: flex;
-    gap: 5px;
+    gap: 8px;
     flex-shrink: 0;
 }
 
 .task-actions button {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
+    padding: 5px;
+    min-width: 30px;
+    min-height: 30px;
 }
 
 .task-actions .edit-btn {
@@ -812,7 +855,7 @@ textarea {
 
 .delete-modal {
     position: fixed;
-    top: 10%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgb(219, 148, 236);
@@ -821,26 +864,32 @@ textarea {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     z-index: 1000;
+    width: 90%;
+    max-width: 400px;
 }
 
 .delete-modal-content {
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
 
 .delete-modal p {
     margin-bottom: 15px;
-    font-size: 16px;
+    font-size: 1rem;
     margin-top: 15px;
+    text-align: center;
 }
 
 #confirm-delete, #cancel-delete {
-    padding: 8px 12px;
+    padding: 10px 15px;
     margin: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9rem;
+    min-width: 100px;
 }
 
 #confirm-delete {
@@ -855,9 +904,131 @@ textarea {
 
 .close-delete-modal {
     position: absolute;
-    top: 2px;
-    right: 12px;
+    top: 5px;
+    right: 10px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    padding: 5px;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .login-container {
+        padding: 15px;
+        border-radius: 20px;
+    }
+    
+    .login-image {
+        max-width: 250px;
+    }
+    
+    .category-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tasks-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .task-actions {
+        align-self: flex-end;
+    }
+    
+    .modal {
+        padding: 15px;
+    }
+    
+    .form-buttons button {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 5px;
+    }
+    
+    .login-container {
+        padding: 10px;
+        border-radius: 15px;
+    }
+    
+    .login-image {
+        max-width: 200px;
+    }
+    
+    .category-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .search-new-task {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .time-container > div {
+        min-width: 100%;
+    }
+    
+    .task-content {
+        min-width: 100%;
+    }
+    
+    .delete-modal {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    body {
+        animation: none !important;
+    }
+    
+    .container img {
+        animation: none !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .login-container, .signup-container, .home-container {
+        box-shadow: none !important;
+        border: none !important;
+    }
+    
+    .btn, .user-icon, .plus-icon {
+        display: none !important;
+    }
+}

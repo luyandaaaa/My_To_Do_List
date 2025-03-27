@@ -1,5 +1,37 @@
 // Login Form Handling
 document.addEventListener('DOMContentLoaded', () => {
+    // Set viewport meta tag dynamically if not present
+    if (!document.querySelector('meta[name="viewport"]')) {
+        const meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, initial-scale=1.0';
+        document.head.appendChild(meta);
+    }
+
+    // Handle window resize
+    function handleResize() {
+        const calendarEl = document.getElementById('calendar');
+        if (calendarEl) {
+            if (window.innerWidth < 768) {
+                calendarEl.style.height = '300px';
+            } else {
+                calendarEl.style.height = '400px';
+            }
+        }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial call
+
+    // Touch device detection
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // Add touch class to body if touch device
+    if (isTouchDevice) {
+        document.body.classList.add('touch-device');
+    }
+
+    // Login Form Handling
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
@@ -87,13 +119,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 plusIcon.dataset.category = category.dataset.category;
                 category.appendChild(plusIcon);
                 
-                plusIcon.addEventListener('click', function() {
-                    const category = this.dataset.category;
-                    document.querySelector(`input[name="task-category"][value="${category}"]`).checked = true;
-                    document.getElementById('modal-title').textContent = 'Create New Task';
-                    showModal(taskModal);
-                });
+                // Add both click and touch events
+                plusIcon.addEventListener('click', handlePlusIconClick);
+                if (isTouchDevice) {
+                    plusIcon.addEventListener('touchend', handlePlusIconClick);
+                }
             });
+        }
+
+        function handlePlusIconClick(e) {
+            e.preventDefault();
+            const category = this.dataset.category;
+            document.querySelector(`input[name="task-category"][value="${category}"]`).checked = true;
+            document.getElementById('modal-title').textContent = 'Create New Task';
+            showModal(taskModal);
         }
 
         // Fetch and cache user data
@@ -153,12 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function showModal(modal) {
             if (overlay) overlay.style.display = 'block';
             if (modal) modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
         }
 
         function hideModals() {
             if (overlay) overlay.style.display = 'none';
             if (taskModal) taskModal.style.display = 'none';
             if (profileModal) profileModal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
         }
 
         // Task Modal Functionality
@@ -166,14 +207,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeModal = document.getElementById('close-modal');
         const cancelBtn = document.getElementById('cancel-btn');
 
-        if (newTaskBtn) newTaskBtn.addEventListener('click', () => {
-            document.getElementById('modal-title').textContent = 'Create New Task';
-            showModal(taskModal);
-        });
+        if (newTaskBtn) {
+            newTaskBtn.addEventListener('click', () => {
+                document.getElementById('modal-title').textContent = 'Create New Task';
+                showModal(taskModal);
+            });
+            if (isTouchDevice) {
+                newTaskBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    document.getElementById('modal-title').textContent = 'Create New Task';
+                    showModal(taskModal);
+                });
+            }
+        }
 
-        if (closeModal) closeModal.addEventListener('click', hideModals);
-        if (cancelBtn) cancelBtn.addEventListener('click', hideModals);
-        if (overlay) overlay.addEventListener('click', hideModals);
+        if (closeModal) {
+            closeModal.addEventListener('click', hideModals);
+            if (isTouchDevice) {
+                closeModal.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    hideModals();
+                });
+            }
+        }
+
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', hideModals);
+            if (isTouchDevice) {
+                cancelBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    hideModals();
+                });
+            }
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', hideModals);
+            if (isTouchDevice) {
+                overlay.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    hideModals();
+                });
+            }
+        }
 
         // Task Form Submission
         const taskForm = document.getElementById('task-form');
@@ -241,9 +317,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 showModal(profileModal);
             });
+            
+            if (isTouchDevice) {
+                userIcon.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    if (userData) {
+                        updateProfileModal(userData);
+                    } else {
+                        fetchUserData().then(updateProfileModal);
+                    }
+                    showModal(profileModal);
+                });
+            }
         }
 
-        if (closeProfileModal) closeProfileModal.addEventListener('click', hideModals);
+        if (closeProfileModal) {
+            closeProfileModal.addEventListener('click', hideModals);
+            if (isTouchDevice) {
+                closeProfileModal.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    hideModals();
+                });
+            }
+        }
 
         if (logoutBtn) {
             logoutBtn.addEventListener('click', function() {
@@ -260,6 +356,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert('Logout failed');
                     });
             });
+            
+            if (isTouchDevice) {
+                logoutBtn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    fetch('/logout', { method: 'POST' })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = '/';
+                            } else {
+                                alert('Logout failed');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Logout error:', error);
+                            alert('Logout failed');
+                        });
+                });
+            }
         }
 
         // Task Management Functions
@@ -346,14 +460,34 @@ document.addEventListener('DOMContentLoaded', () => {
         function attachTaskEventListeners() {
             document.querySelectorAll('.task-checkbox input').forEach(checkbox => {
                 checkbox.addEventListener('change', toggleTaskCompletion);
+                if (isTouchDevice) {
+                    checkbox.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        checkbox.checked = !checkbox.checked;
+                        const event = new Event('change');
+                        checkbox.dispatchEvent(event);
+                    });
+                }
             });
 
             document.querySelectorAll('.delete-btn').forEach(button => {
                 button.addEventListener('click', deleteTask);
+                if (isTouchDevice) {
+                    button.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        deleteTask(e);
+                    });
+                }
             });
 
             document.querySelectorAll('.edit-btn').forEach(button => {
                 button.addEventListener('click', editTask);
+                if (isTouchDevice) {
+                    button.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        editTask(e);
+                    });
+                }
             });
         }
 
@@ -387,19 +521,81 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = button.dataset.id;
             const category = button.dataset.category;
 
-            if (!confirm('Are you sure you want to delete this task?')) return;
+            // Show confirmation modal instead of native confirm
+            const deleteModal = document.createElement('div');
+            deleteModal.className = 'delete-modal';
+            deleteModal.innerHTML = `
+                <button class="close-delete-modal">&times;</button>
+                <div class="delete-modal-content">
+                    <p>Are you sure you want to delete this task?</p>
+                    <div>
+                        <button id="confirm-delete">Delete</button>
+                        <button id="cancel-delete">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(deleteModal);
 
-            try {
-                const response = await fetch(`/tasks/${category}/${id}`, { 
-                    method: 'DELETE' 
+            // Handle modal close
+            const closeBtn = deleteModal.querySelector('.close-delete-modal');
+            closeBtn.addEventListener('click', () => {
+                document.body.removeChild(deleteModal);
+            });
+
+            // Handle cancel
+            const cancelBtn = deleteModal.querySelector('#cancel-delete');
+            cancelBtn.addEventListener('click', () => {
+                document.body.removeChild(deleteModal);
+            });
+
+            // Handle confirm
+            const confirmBtn = deleteModal.querySelector('#confirm-delete');
+            confirmBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch(`/tasks/${category}/${id}`, { 
+                        method: 'DELETE' 
+                    });
+                    
+                    if (!response.ok) throw new Error('Failed to delete task');
+                    
+                    document.body.removeChild(deleteModal);
+                    fetchTasks();
+                } catch (error) {
+                    console.error("Error deleting task:", error);
+                    alert('Failed to delete task. Please try again.');
+                    document.body.removeChild(deleteModal);
+                }
+            });
+
+            // Add touch events for mobile
+            if (isTouchDevice) {
+                closeBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    document.body.removeChild(deleteModal);
                 });
-                
-                if (!response.ok) throw new Error('Failed to delete task');
-                
-                fetchTasks();
-            } catch (error) {
-                console.error("Error deleting task:", error);
-                alert('Failed to delete task. Please try again.');
+
+                cancelBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    document.body.removeChild(deleteModal);
+                });
+
+                confirmBtn.addEventListener('touchend', async (e) => {
+                    e.preventDefault();
+                    try {
+                        const response = await fetch(`/tasks/${category}/${id}`, { 
+                            method: 'DELETE' 
+                        });
+                        
+                        if (!response.ok) throw new Error('Failed to delete task');
+                        
+                        document.body.removeChild(deleteModal);
+                        fetchTasks();
+                    } catch (error) {
+                        console.error("Error deleting task:", error);
+                        alert('Failed to delete task. Please try again.');
+                        document.body.removeChild(deleteModal);
+                    }
+                });
             }
         }
 
