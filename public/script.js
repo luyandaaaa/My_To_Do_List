@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: 'Today',
                     start: new Date(),
                     allDay: true,
-                    backgroundColor: '#ff9f89',
+                    backgroundColor: '#e86100',
                     textColor: '#000'
                 }]
             });

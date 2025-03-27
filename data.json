@@ -70,11 +70,35 @@
       ]
     },
     "1743067937666": {
-      "work": [],
+      "work": [
+        {
+          "id": "1743085228020",
+          "name": "work",
+          "date": "2025-03-28",
+          "startTime": "17:20",
+          "endTime": "20:21",
+          "description": "work",
+          "completed": false,
+          "createdAt": "2025-03-27T14:20:28.021Z"
+        }
+      ],
       "personal": [],
       "shopping": [],
       "health": [],
-      "completed": []
+      "completed": [
+        {
+          "id": "1743080398868",
+          "name": "Appointment",
+          "date": "2025-03-28",
+          "startTime": "14:59",
+          "endTime": "19:59",
+          "description": "gggg",
+          "completed": true,
+          "createdAt": "2025-03-27T12:59:58.869Z",
+          "completedAt": "2025-03-27T13:00:07.867Z",
+          "originalCategory": "shopping"
+        }
+      ]
     }
   }
 }
