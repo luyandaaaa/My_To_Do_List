@@ -1,0 +1,80 @@
+{
+  "users": [
+    {
+      "id": "1743058568567",
+      "name": "luyanda",
+      "email": "rest@gmail.com",
+      "password": "$2b$10$YvFhouuxu8TwQBor.m581.DQCcCS08/KgRpT4fB4C30NITd8Q4yvm"
+    },
+    {
+      "id": "1743059423599",
+      "name": "luh",
+      "email": "rest1@gmail.com",
+      "password": "$2b$10$uiyyw6unPj1sYFeWoe2OFO7QXdCaCzCb5GK5HIIoh2f.FcI4mGXdi"
+    },
+    {
+      "id": "1743067937666",
+      "name": "luyanda",
+      "email": "test@gmail.com",
+      "password": "$2b$10$oBNLvVwJUp3dMB/V3cayjeyv6l0iFXv76XQltvrErrPcpFsEj8TPG"
+    }
+  ],
+  "tasks": {
+    "1743058568567": {
+      "work": [],
+      "personal": [],
+      "shopping": [],
+      "health": [],
+      "completed": []
+    },
+    "1743059423599": {
+      "work": [],
+      "personal": [
+        {
+          "id": "1743059607723",
+          "name": "drep",
+          "date": "2025-03-28",
+          "startTime": "09:11",
+          "endTime": "11:11",
+          "description": "avatar way of water",
+          "completed": false,
+          "createdAt": "2025-03-27T07:13:27.723Z"
+        }
+      ],
+      "shopping": [],
+      "health": [
+        {
+          "id": "1743059663635",
+          "name": "doc appointment",
+          "date": "2025-03-28",
+          "startTime": "10:15",
+          "endTime": "11:15",
+          "description": "prescription",
+          "completed": false,
+          "createdAt": "2025-03-27T07:14:23.635Z"
+        }
+      ],
+      "completed": [
+        {
+          "id": "1743059481820",
+          "name": "drep",
+          "date": "2025-03-28",
+          "startTime": "09:11",
+          "endTime": "11:11",
+          "description": "qqq",
+          "completed": true,
+          "createdAt": "2025-03-27T07:11:21.820Z",
+          "completedAt": "2025-03-27T07:13:09.170Z",
+          "originalCategory": "personal"
+        }
+      ]
+    },
+    "1743067937666": {
+      "work": [],
+      "personal": [],
+      "shopping": [],
+      "health": [],
+      "completed": []
+    }
+  }
+}

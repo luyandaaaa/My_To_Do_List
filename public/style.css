@@ -86,24 +86,22 @@ p.trade-winds-regular {
 a.btn-primary {
     padding: 10px 20px;
     font-size: 1em;
-    background-color: #9224ec; /* Complementary muted pink */
+    background-color: #9224ec;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none; /* Remove underline from link */
-    display: inline-block; /* Make the link behave like a button */
+    text-decoration: none;
+    display: inline-block;
     margin-top: 20px;
 }
 
 a.btn-primary:hover {
-    background-color: #8c3d66; /* Darker shade for hover */
+    background-color: #8c3d66;
     transform: scale(1.1);
     box-shadow: 0 0 15px rgba(134, 245, 60, 0.8);
 }
-
-/* login styling*/
 
 .login-container {
     max-width: 1000px;
@@ -113,7 +111,7 @@ a.btn-primary:hover {
     background: rgb(249, 249, 252);
     padding: 20px;
     border-radius: 50px;
-    box-shadow: none; /* Remove the shadow */
+    box-shadow: none;
     border:2px solid darkmagenta;
 }
 
@@ -130,7 +128,6 @@ a.btn-primary:hover {
     animation: moveBorder 3s infinite linear;
 }
 
-/* Form Styles */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -144,18 +141,19 @@ a.btn-primary:hover {
 
 .form-group input {
     width: 100%;
-    padding: 10px 10px 10px 40px; /* Add padding for the icon */
+    padding: 10px 10px 10px 40px;
     border: 2px solid #d88bf0;
     border-radius: 5px;
     font-size: 1em;
     background: rgb(240, 239, 235);
 }
+
 .icon {
     position: absolute;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #a64d79; /* Icon color */
+    color: #a64d79;
     font-size: 1.2em;
 }
 
@@ -174,6 +172,7 @@ a.btn-primary:hover {
     text-decoration: none;
     color: blue;
 }
+
 .sign-up-text {
     margin-top: 15px;
     color: #333;
@@ -188,8 +187,9 @@ a.btn-primary:hover {
     text-decoration: none;
     color: blue;
 }
+
 .btn {
-    width: 200px; /* Adjust the width as needed */
+    width: 200px;
     padding: 10px;
     background-color: darkmagenta;
     color: white;
@@ -197,16 +197,15 @@ a.btn-primary:hover {
     border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .btn:hover {
-    background-color: #ebc395; /* Darker shade for hover */
+    background-color: #ebc395;
     transform: scale(1.1);
     box-shadow: 0 0 50px rgba(134, 245, 60, 0.8);
 }
 
-/* Sign up page styling:*/
 .signup-container {
     background-color: #ffffff;
     padding: 2rem;
@@ -217,21 +216,14 @@ a.btn-primary:hover {
     text-align: center;
 }
 
-/*home page styling*/
-/* New styles for the home-container */
 .home-container {
     width: 100%;
     min-height: 100vh;
     display: flex;
-    background: linear-gradient(135deg, #f8e3cf, #b0aae4); /* Custom background for the container */
-    overflow: hidden; /* Prevent scrolling */
+    background: linear-gradient(135deg, #f8e3cf, #b0aae4);
+    overflow: hidden;
 }
 
-/* Adjust the sidebar and main-content to fit within the home-container */
-.main-content {
-    flex-grow: 1;
-    padding: 20px;
-}
 .main-content {
     flex-grow: 1;
     padding: 20px;
@@ -257,8 +249,8 @@ a.btn-primary:hover {
     font-family: "Fruktur", cursive;
     font-weight: 400;
     font-style: normal;
-    color: #4f6ef8; /* Matching your sidebar color */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
+    color: #4f6ef8;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .search-new-task {
@@ -266,7 +258,6 @@ a.btn-primary:hover {
     align-items: center;
 }
 
-/* Profile Modal Styles */
 #profile-modal {
     width: 600px;
 }
@@ -310,6 +301,7 @@ a.btn-primary:hover {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .user-icon {
     font-size: 30px;
     margin-left: 15px;
@@ -317,11 +309,11 @@ a.btn-primary:hover {
     color: #080808;
     transition: all 0.3s ease;
 }
+
 .user-icon:hover {
     transform: scale(1.1);
     color: #3a56c4;
 }
-
 
 .categories {
     margin-top: 30px;
@@ -329,18 +321,18 @@ a.btn-primary:hover {
 
 .categories p {
     font-size: 25px;
-    margin-bottom: 15px; /* Space between "Categories" and the boxes */
+    margin-bottom: 15px;
     font-family: "Fruktur", cursive;
     font-weight: 400;
     font-style: normal;
-    color: #4f6ef8; /* Matching your sidebar color */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
+    color: #4f6ef8;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     text-align: center;
 }
 
 .category-container {
     display: flex;
-    gap: 15px; /* Space between category boxes */
+    gap: 15px;
 }
 
 .category {
@@ -353,24 +345,25 @@ a.btn-primary:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-width: 150px; /* Ensure cards don't get too narrow */
+    min-width: 150px;
 }
 
 .category .category-name {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: auto; /* Push to top */
+    margin-bottom: auto;
 }
 
 .category .task-count {
     font-size: 14px;
-    margin-top: auto; /* Push to bottom */
+    margin-top: auto;
     padding-top: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: center;
-    position: relative; /* Add this for absolute positioning of plus icon */
+    position: relative;
 }
+
 .category .plus-icon {
     position: absolute;
     right: 0;
@@ -385,7 +378,7 @@ a.btn-primary:hover {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    margin: 0; /* Remove any margins */
+    margin: 0;
 }
 
 .category .plus-icon:hover {
@@ -396,7 +389,6 @@ a.btn-primary:hover {
 .count-number {
     margin-right: 5px;
 }
-
 
 .work {
     background-color: #3498db;
@@ -413,6 +405,7 @@ a.btn-primary:hover {
 .health {
     background-color: #2ecc71;
 }
+
 .task-grid {
     margin: 5px;
     margin-top: 40px;
@@ -424,16 +417,17 @@ a.btn-primary:hover {
     font-family: "Fruktur", cursive;
     font-weight: 400;
     font-style: normal;
-    color: #4f6ef8; /* Matching your sidebar color */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle shadow */
+    color: #4f6ef8;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .tasks-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal columns */
-    gap: 20px; /* Space between columns */
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
     height: 100%;
 }
+
 .task-column {
     padding: 20px;
     border-radius: 8px;
@@ -445,6 +439,7 @@ a.btn-primary:hover {
     grid-template-rows: auto auto;
     gap: 25px;
 }
+
 .right-column {
     height: 100%;
 }
@@ -457,6 +452,7 @@ a.btn-primary:hover {
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     height: 100%;
 }
+
 #task-counter {
     font-weight: bold;
     color: #2c3e50;
@@ -472,7 +468,7 @@ a.btn-primary:hover {
     font-size: 0.9rem;
     color: #555;
 }
-/* Completed Tasks Styling */
+
 #completed-task-list {
     list-style: none;
     padding: 0;
@@ -483,13 +479,13 @@ a.btn-primary:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f0fff0; /* Light green background */
+    background: #f0fff0;
     padding: 10px 15px;
     margin: 8px 0;
     border-radius: 8px;
     transition: all 0.3s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
-    border-left: 4px solid #2ecc71; /* Green accent border */
+    border-left: 4px solid #2ecc71;
 }
 
 #completed-task-list li:hover {
@@ -518,29 +514,30 @@ a.btn-primary:hover {
     list-style: circle;
     padding: 15px;
     margin-bottom: 10px;
-    border-radius: 4px; /* Rounded corners for tasks */
-    position: relative; /* Required for custom bullets */
-    padding-left: 30px; /* Space for custom bullets */
+    border-radius: 4px;
+    position: relative;
+    padding-left: 30px;
     list-style-type: none;
     font-size: 15px;
 }
 
 .task::before {
     position: absolute;
-    left: 10px; /* Position the bullet */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Center vertically */
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 #calendar {
     width: 100%;
-    height: 500px; /* Matches combined height of left column */
+    height: 500px;
     background: rgb(224, 175, 247);
     border-radius: 12px;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     color: #000;
 }
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .tasks-container {
         grid-template-columns: 1fr;
@@ -554,7 +551,7 @@ a.btn-primary:hover {
         height: 400px;
     }
 }
-/* Popup Modal Styles */
+
 .overlay {
     display: none;
     position: fixed;
@@ -662,35 +659,112 @@ textarea {
     color: white;
 }
 
-/* Task List Styling */
 #task-list {
     list-style: none;
     padding: 0;
     margin-top: 10px;
 }
 
-#task-list li {
+.task-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background: #f8f8f8;
-    padding: 10px;
-    margin: 5px 0;
+    padding: 15px;
+    margin: 8px 0;
     border-radius: 8px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Task Name */
-.task-name {
-    flex: 1;
-    font-size: 16px;
+.task-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
 }
 
-/* Task Actions (Icons) */
+.task-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.task-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #0c0c0c;
+    border-radius: 50%;
+}
+
+.task-checkbox:hover input ~ .checkmark {
+    background-color: #f1f1f1;
+}
+
+.task-checkbox input:checked ~ .checkmark {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.task-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.task-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.task-details {
+    flex-grow: 1;
+}
+
+.task-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.task-description {
+    color: #666;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.task-meta {
+    display: flex;
+    font-size: 0.8em;
+    color: #888;
+    gap: 10px;
+}
+
 .task-actions {
     display: flex;
-    gap: 5px; /* Small space between icons */
+    gap: 5px;
+    flex-shrink: 0;
 }
 
 .task-actions button {
@@ -714,8 +788,11 @@ textarea {
     transform: scale(1.2);
 }
 
+.task-name.strikethrough {
+    text-decoration: line-through;
+    color: grey;
+}
 
-/* Delete Confirmation Modal */
 .delete-modal {
     position: fixed;
     top: 10%;
@@ -766,61 +843,3 @@ textarea {
     cursor: pointer;
     font-size: 30px;
 }
-/* Add this to your CSS */
-.task-checkbox {
-    position: relative;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
-.task-checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: relative;
-    height: 20px;
-    width: 20px;
-    background-color: #fff;
-    border: 2px solid #0c0c0c;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.task-checkbox:hover input ~ .checkmark {
-    border-color: #888;
-}
-
-.task-checkbox input:checked ~ .checkmark {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.task-checkbox input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.task-checkbox .checkmark:after {
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid rgb(8, 8, 8);
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-.task-name.strikethrough {
-    text-decoration: line-through;
-    color: grey;
-}
-

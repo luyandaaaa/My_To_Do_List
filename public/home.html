@@ -16,9 +16,8 @@
     <div class="home-container">
         <div class="main-content">
             <div class="top-bar">
-                <!-- Keep the rest of user-info here -->
                 <div class="user-info">
-                    <span class="whats-up" id="user-greeting">What's up, Harsh!</span>
+                    <span class="whats-up" id="user-greeting">What's up, User!</span>
                 </div>
                 <div class="search-new-task">
                     <button class="new-task-btn" id="new-task-btn">+ New Task</button>
@@ -26,7 +25,6 @@
                 </div>
             </div>
 
-            <!-- Rest of your content remains unchanged -->
             <div class="categories">
                 <p>Categories</p> 
                 <div class="category-container"> 
@@ -34,28 +32,24 @@
                         <span class="category-name">Work</span>
                         <span class="task-count">
                             <span class="count-number">0</span> tasks
-                            <span class="plus-icon" data-category="work">+</span>
                         </span>
                     </div>
                     <div class="category personal" data-category="personal">
                         <span class="category-name">Personal</span>
                         <span class="task-count">
                             <span class="count-number">0</span> tasks
-                            <span class="plus-icon" data-category="personal">+</span>
                         </span>
                     </div>
                     <div class="category shopping" data-category="shopping">
                         <span class="category-name">Shopping</span>
                         <span class="task-count">
                             <span class="count-number">0</span> tasks
-                            <span class="plus-icon" data-category="shopping">+</span>
                         </span>
                     </div>
                     <div class="category health" data-category="health">
                         <span class="category-name">Health</span>
                         <span class="task-count">
                             <span class="count-number">0</span> task
-                            <span class="plus-icon" data-category="health">+</span>
                         </span>
                     </div>
                 </div>
@@ -82,6 +76,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
     <div class="overlay" id="overlay"></div>
     <div class="modal" id="task-modal">
@@ -108,7 +104,7 @@
             <!-- Date -->
             <div class="form-group">
                 <label for="task-date">Date</label>
-                <input type="date" id="task-date" name="task-date" required min="<?php echo date('Y-m-d'); ?>">
+                <input type="date" id="task-date" name="task-date" required>
             </div>
 
             <!-- Time -->
