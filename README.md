@@ -1,10 +1,12 @@
   # Donezo - Task Management Website 🚀
 Turn Your To-Dos into Dones!
-Welcome to the To-Do List website! This project is designed to help users manage tasks and stay organized. The website allows you to easily add, edit, and delete tasks, and provides a clear interface for managing your to-do items. It is built using: HTML, CSS, JavaScript, Node js, ensuring a smooth and responsive experience across all devices.
+Welcome to the To-Do List website!.
 
-
-# 📌 About
-Donezo (pronounced "Dun-zo") is a full-stack task management application designed to help users organize, track, and complete their tasks efficiently. Built with HTML, CSS, JavaScript, Node.js, and Express, Donezo provides a responsive, interactive, and visually appealing interface for managing daily tasks.
+![ToDoList Preview](dunzo.jpeg)
+## 📌 About
+Donezo (pronounced "Dun-zo") is a full-stack task management website designed to help users organize, track, and complete their tasks efficiently. Built with HTML, CSS, JavaScript, Node.js, and Express, Donezo provides a responsive, interactive, and visually appealing interface for managing daily tasks.
+Tech Stack:
+HTML5 CSS3 JavaScript Node.js Express
 
 🔹 Live Demo: 
 
@@ -74,7 +76,7 @@ My_To_Do_List/
 Visit:
 🔗 http://localhost:3001
 
-🚀 Future Improvements
+# 🚀 Future Improvements
 Database Integration (PostgreSQL/MongoDB)
 
 Email Verification & Password Recovery
