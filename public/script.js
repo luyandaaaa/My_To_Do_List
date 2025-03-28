@@ -704,6 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     li.innerHTML = `
                         <div class="task-info">
                             <span class="task-name">${task.name}</span>
+                            <span class="task-description">${task.description}</span>
                             <span class="task-date">Completed: ${new Date(task.completedAt).toLocaleString()}</span>
                         </div>
                     `;
