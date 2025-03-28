@@ -2,7 +2,7 @@
 Turn Your To-Dos into Dones!
 Welcome to the To-Do List website!.
 
-![ToDoList Preview](dunzo.jpeg)
+![ToDoList Preview](https://raw.githubusercontent.com/luyandaaaa/My_To_Do_List/main/public/dunzo.jpeg)
 ## 📌 About
 Donezo (pronounced "Dun-zo") is a full-stack task management website designed to help users organize, track, and complete their tasks efficiently. Built with HTML, CSS, JavaScript, Node.js, and Express, Donezo provides a responsive, interactive, and visually appealing interface for managing daily tasks.
 Tech Stack:
