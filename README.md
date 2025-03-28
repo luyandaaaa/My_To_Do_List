@@ -3,12 +3,12 @@ Turn Your To-Dos into Dones!
 Welcome to the To-Do List website! This project is designed to help users manage tasks and stay organized. The website allows you to easily add, edit, and delete tasks, and provides a clear interface for managing your to-do items. It is built using: HTML, CSS, JavaScript, Node js, ensuring a smooth and responsive experience across all devices.
 
 
-📌 About
+# 📌 About
 Donezo (pronounced "Dun-zo") is a full-stack task management application designed to help users organize, track, and complete their tasks efficiently. Built with HTML, CSS, JavaScript, Node.js, and Express, Donezo provides a responsive, interactive, and visually appealing interface for managing daily tasks.
 
 🔹 Live Demo: 
 
-✨ Features
+# ✨ Features
 ✅ User Authentication
 Secure login & registration with password hashing (bcrypt)
 
@@ -16,7 +16,7 @@ Session-based authentication
 
 Profile management (view name & email)
 
-📝 Task Management
+# 📝 Task Management
 Create, edit, and delete tasks
 
 Categorize tasks (Work, Personal, Shopping, Health)
@@ -39,7 +39,7 @@ Category
 FullCalendar.js integration
 
 
-🎨 UI/UX Highlights
+# 🎨 UI/UX Highlights
 Responsive design (works on mobile & desktop)
 
 Animated background & transitions
@@ -48,7 +48,7 @@ Modal-based forms
 
 Touch-friendly controls
 
-📂 Project Structure
+# 📂 Project Structure
 My_To_Do_List/  
 ├── public/  
 │   ├── home.html          # Main app interface  
@@ -62,7 +62,7 @@ My_To_Do_List/
 ├── data.json              # JSON database (auto-generated)  
 └── package.json           # Node.js dependencies  
 
-⚙️ Installation & Setup
+# ⚙️ Installation & Setup
 1. Clone the Repository
    git clone https://github.com/luyandaaaa/My_To_Do_List.git
    cd My_To_Do_List
@@ -85,15 +85,15 @@ Dark Mode Toggle
 
 Task Sharing & Collaboration
 
-📜 License
+# 📜 License
 This project is licensed under the ISC License.
 
-👨‍💻 Author
+# 👨‍💻 Developer
 Luyanda Xhakaza
 🔗 GitHub: luyandaaaa
 📧 Email: lloyiswa2003@gmail.com
 
-🌟 Why Donezo?
+# 🌟 Why Donezo?
 ✔ Simple & Intuitive – Easy task management
 ✔ Visually Engaging – Smooth animations & UI
 ✔ Open-Source – Free to use & modify
