@@ -1,4 +1,4 @@
- # Donezo - Task Management Website 🚀  
+# Donezo - Task Management Website 🚀  
 ## Turn Your To-Dos into Dones!
 
 ![ToDoList Preview](https://raw.githubusercontent.com/luyandaaaa/My_To_Do_List/main/public/dunzo.jpeg)
@@ -43,28 +43,26 @@ Donezo (pronounced "Dun-zo") is a full-stack task management website designed to
 
 ---
 
-# 📂 Project Structure
-
+## 📂 Project Structure
 My_To_Do_List/
 ├── public/
-│   ├── home.html          # Main app interface
-│   ├── index.html         # Landing page
-│   ├── login.html         # Login page
-│   ├── signup.html        # Registration page
-│   ├── script.js          # Client-side logic
-│   ├── style.css          # Main stylesheet
-│   ├── dunzo.jpeg
-│   ├── icon.avif
-│   ├── of-to.jpg
-│   ├── person.jpg
-│   └── to-do1.jpg
-├── server.js              # Backend server (Express)
-├── data.json              # JSON database (auto-generated)
+│ ├── home.html # Main app interface
+│ ├── index.html # Landing page
+│ ├── login.html # Login page
+│ ├── signup.html # Registration page
+│ ├── script.js # Client-side logic
+│ ├── style.css # Main stylesheet
+│ ├── dunzo.jpeg
+│ ├── icon.avif
+│ ├── of-to.jpg
+│ ├── person.jpg
+│ └── to-do1.jpg
+├── server.js # Backend server (Express)
+├── data.json # JSON database (auto-generated)
 ├── README.md
 ├── package-lock.json
-└── package.json           # Node.js dependencies
+└── package.json # Node.js dependencies
 
----
 
 ## ⚙️ Installation & Setup  
 
