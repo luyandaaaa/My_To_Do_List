@@ -43,28 +43,26 @@ Donezo (pronounced "Dun-zo") is a full-stack task management website designed to
 
 ---
 
-## 📂 Project Structure  
+# 📂 Project Structure
+
 My_To_Do_List/
-My_To_Do_List/
-│
 ├── public/
-│ ├── home.html # Main app interface
-│ ├── index.html # Landing page
-│ ├── login.html # Login page
-│ ├── signup.html # Registration page
-│ ├── script.js # Client-side logic
-│ ├── style.css # Main stylesheet
-│ ├── dunzo.jpeg
-│ ├── icon.avif
-│ ├── of-to.jpg
-│ ├── person.jpg
-│ └── to-do1.jpg
-│
-├── server.js # Backend server (Express)
-├── data.json # JSON database (auto-generated)
-├── package.json # Node.js dependencies
+│   ├── home.html          # Main app interface
+│   ├── index.html         # Landing page
+│   ├── login.html         # Login page
+│   ├── signup.html        # Registration page
+│   ├── script.js          # Client-side logic
+│   ├── style.css          # Main stylesheet
+│   ├── dunzo.jpeg
+│   ├── icon.avif
+│   ├── of-to.jpg
+│   ├── person.jpg
+│   └── to-do1.jpg
+├── server.js              # Backend server (Express)
+├── data.json              # JSON database (auto-generated)
+├── README.md
 ├── package-lock.json
-└── README.md
+└── package.json           # Node.js dependencies
 
 ---
 
