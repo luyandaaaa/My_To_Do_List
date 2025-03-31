@@ -6,7 +6,7 @@
 ## 📌 About  
 Donezo (pronounced "Dun-zo") is a full-stack task management website designed to help users organize, track, and complete their tasks efficiently. Built with modern web technologies, Donezo provides a responsive, interactive, and visually appealing interface for managing daily tasks.
 
-**Tech Stack:**  
+**Tech Stack:**     
 - Frontend: HTML5, CSS3, JavaScript  
 - Backend: Node.js, Express  
 
